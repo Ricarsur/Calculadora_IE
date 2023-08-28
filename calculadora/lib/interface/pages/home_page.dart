@@ -1,16 +1,23 @@
 import 'package:calculadora/interface/widgets/top_menu_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 import '../widgets/bottom_menu_widget.dart';
-import '../widgets/textfield_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
+}
+
+class PageInteresSimple extends StatefulWidget {
+  const PageInteresSimple({
+    super.key,
+  });
+
+  @override
+  State<PageInteresSimple> createState() => _PageInteresSimpleState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -40,15 +47,6 @@ class _HomePageState extends State<HomePage> {
           ],
         )));
   }
-}
-
-class PageInteresSimple extends StatefulWidget {
-  const PageInteresSimple({
-    super.key,
-  });
-
-  @override
-  State<PageInteresSimple> createState() => _PageInteresSimpleState();
 }
 
 class _PageInteresSimpleState extends State<PageInteresSimple> {

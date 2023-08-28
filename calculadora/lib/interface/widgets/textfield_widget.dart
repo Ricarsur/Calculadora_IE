@@ -31,12 +31,6 @@ class TextFieldWidget extends StatefulWidget {
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       style: GoogleFonts.poppins(),
