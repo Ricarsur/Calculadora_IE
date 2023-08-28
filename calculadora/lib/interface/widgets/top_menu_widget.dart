@@ -56,9 +56,15 @@ class _TopMenuWidgetState extends State<TopMenuWidget> {
           _index = index;
         });
       },
-      child: Text(
-        text,
-        style: GoogleFonts.poppins(color: color, fontSize: 10),
+      child: Container(
+        color: Colors.transparent,
+        height: double.infinity,
+        child: Center(
+          child: Text(
+            text,
+            style: GoogleFonts.poppins(color: color, fontSize: 10),
+          ),
+        ),
       ),
     );
   }
