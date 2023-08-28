@@ -12,6 +12,7 @@ class BottomMenuWidget extends StatefulWidget {
 }
 
 class _BottomMenuWidgetState extends State<BottomMenuWidget> {
+  int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,21 +26,34 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
           iconButtonMenu('Interés simple', 'assets/icons/interes-simple.png',
               () {
             widget.onPageChanged(0);
-          }),
+          },
+              _currentPage == 0
+                  ? AppColor.white
+                  : AppColor.white.withOpacity(0.3),
+              0),
           iconButtonMenu(
               'Interés compuesto', 'assets/icons/interes-compuesto.png', () {
             widget.onPageChanged(1);
-          }),
+          },
+              _currentPage == 1
+                  ? AppColor.white
+                  : AppColor.white.withOpacity(0.3),
+              1),
         ],
       ),
     );
   }
 
-  Expanded iconButtonMenu(
-      String text, String image, VoidCallback voidCallback) {
+  Expanded iconButtonMenu(String text, String image, VoidCallback voidCallback,
+      Color color, int index) {
     return Expanded(
       child: GestureDetector(
-        onTap: voidCallback,
+        onTap: () {
+          voidCallback();
+          setState(() {
+            _currentPage = index;
+          });
+        },
         child: Container(
           color: Colors.transparent,
           child: Column(
@@ -48,14 +62,14 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
             children: [
               Image.asset(
                 image,
-                color: AppColor.white,
+                color: color,
                 width: 20,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 5),
               Text(
                 text,
-                style: GoogleFonts.poppins(color: AppColor.white, fontSize: 10),
+                style: GoogleFonts.poppins(color: color, fontSize: 10),
               )
             ],
           ),

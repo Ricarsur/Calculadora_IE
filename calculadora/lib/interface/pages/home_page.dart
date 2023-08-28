@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/color.dart';
 import '../widgets/bottom_menu_widget.dart';
+import '../widgets/textfield_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,8 +66,17 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
           child: PageView(
             controller: _subPageController,
             children: [
-              Center(
-                child: Text('1', style: TextStyle(color: AppColor.white)),
+              Column(
+                children: [
+                  TextFieldWidget(
+                    text: 'Monto inicial',
+                    prefixIcon: Icon(
+                      Icons.attach_money_rounded,
+                      color: Colors.white.withOpacity(0.3),
+                    ),
+                    hintText: '0.00',
+                  ),
+                ],
               ),
               Center(
                 child: Text('2', style: TextStyle(color: AppColor.white)),
@@ -82,16 +92,7 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
               ),
             ],
           ),
-        )
-        /* TextFieldWidget(
-          text: 'Monto inicial',
-          width: 150,
-          prefixIcon: Icon(
-            Icons.attach_money_rounded,
-            color: Colors.white.withOpacity(0.3),
-          ),
-          hintText: '0.00',
-        ), */
+        ),
       ],
     );
   }
