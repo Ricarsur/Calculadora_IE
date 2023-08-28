@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 
 class BottomMenuWidget extends StatefulWidget {
-  const BottomMenuWidget({super.key});
+  final Function(int) onPageChanged;
+  const BottomMenuWidget({super.key, required this.onPageChanged});
 
   @override
   State<BottomMenuWidget> createState() => _BottomMenuWidgetState();
@@ -22,11 +24,11 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
         children: [
           iconButtonMenu('Interés simple', 'assets/icons/interes-simple.png',
               () {
-            print('boton 1');
+            widget.onPageChanged(0);
           }),
           iconButtonMenu(
               'Interés compuesto', 'assets/icons/interes-compuesto.png', () {
-            print('boton 2');
+            widget.onPageChanged(1);
           }),
         ],
       ),
@@ -38,22 +40,25 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
     return Expanded(
       child: GestureDetector(
         onTap: voidCallback,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              image,
-              color: AppColor.white,
-              width: 26,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 5),
-            Text(
-              text,
-              style: TextStyle(color: AppColor.white, fontSize: 13),
-            )
-          ],
+        child: Container(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                image,
+                color: AppColor.white,
+                width: 20,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                text,
+                style: GoogleFonts.poppins(color: AppColor.white, fontSize: 10),
+              )
+            ],
+          ),
         ),
       ),
     );

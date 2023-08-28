@@ -3,7 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 
+enum TextfieldType {
+  money,
+  number,
+  date,
+}
+
 class TextFieldWidget extends StatefulWidget {
+  final TextfieldType? textfieldType;
   final Icon? prefixIcon;
   final Icon? suffixIcon;
   final String? hintText;
@@ -15,13 +22,20 @@ class TextFieldWidget extends StatefulWidget {
       this.suffixIcon,
       required this.text,
       this.hintText,
-      this.width});
+      this.width,
+      this.textfieldType});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
@@ -30,7 +44,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         width: widget.width ?? double.infinity,
         padding: const EdgeInsets.only(left: 16, right: 16, top: 5),
         decoration: BoxDecoration(
-          color: AppColor.white,
+          color: AppColor.primary,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -40,20 +54,21 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               padding: EdgeInsets.only(left: widget.prefixIcon == null ? 0 : 8),
               child: Text(widget.text,
                   style: TextStyle(
-                      fontSize: 16,
-                      color: AppColor.black.withOpacity(0.8),
-                      fontWeight: FontWeight.w600)),
+                      fontSize: 14,
+                      color: AppColor.white.withOpacity(0.8),
+                      fontWeight: FontWeight.w500)),
             ),
             Row(
               children: [
                 widget.prefixIcon ?? Container(),
                 Expanded(
                   child: TextField(
-                    style: GoogleFonts.poppins(),
+                    style: GoogleFonts.poppins(color: AppColor.white),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: widget.hintText,
-                        hintStyle: GoogleFonts.poppins()),
+                        hintStyle: GoogleFonts.poppins(
+                            color: AppColor.white.withOpacity(0.3))),
                   ),
                 ),
                 widget.suffixIcon ?? Container(),
