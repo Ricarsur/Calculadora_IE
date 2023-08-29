@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 
 enum TextfieldType {
-  money,
   number,
   date,
+  porcent,
 }
 
 class TextFieldWidget extends StatefulWidget {
@@ -22,14 +23,16 @@ class TextFieldWidget extends StatefulWidget {
       this.suffixIcon,
       required this.text,
       this.hintText,
-      this.width,
-      this.textfieldType});
+      this.width = 200,
+      this.textfieldType = TextfieldType.number});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
+  final TextEditingController _controller = TextEditingController();
+  late List<TextInputFormatter> textInputFormatter = [];
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
@@ -57,6 +60,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 widget.prefixIcon ?? Container(),
                 Expanded(
                   child: TextField(
+                    controller: _controller,
+                    inputFormatters: textInputFormatter,
                     style: GoogleFonts.poppins(color: AppColor.white),
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -72,5 +77,22 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.textfieldType == TextfieldType.number) {
+      textInputFormatter.add(FilteringTextInputFormatter.allow(
+          RegExp(r'^(?:[1-9][0-9]*|0)(?:\.[0-9]*)?$')));
+      /* textInputFormatter
+          .add(FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$'))); */
+    } else if (widget.textfieldType == TextfieldType.date) {
+      textInputFormatter
+          .add(FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')));
+    } else {
+      textInputFormatter.add(FilteringTextInputFormatter.allow(
+          RegExp(r'^(?!100(\.0*)?$)(\d{1,2}(\.\d*)?|\.\d+)$')));
+    }
   }
 }

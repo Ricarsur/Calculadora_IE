@@ -117,6 +117,7 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
                 text: 'Tasa de interés',
                 width: 150,
                 hintText: '0.0%',
+                textfieldType: TextfieldType.porcent,
               ),
             ],
           ),
@@ -126,6 +127,7 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
             children: [
               TextFieldWidget(
                 text: 'Fecha inicial',
+                textfieldType: TextfieldType.date,
                 width: 150,
                 hintText:
                     DateFormat('dd/MM/yyyy').format(dateTimeNow).toString(),
