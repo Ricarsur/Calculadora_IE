@@ -18,30 +18,64 @@ class _TopMenuWidgetState extends State<TopMenuWidget> {
     var sizeWidth = MediaQuery.sizeOf(context).width;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sizeWidth / 8.5),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      height: 55,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      height: 70,
       decoration: BoxDecoration(
         color: AppColor.primary,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          itemTextMenu('Valor final', () {
-            widget.onPageChanged(0);
-          }, _index == 0 ? AppColor.white : AppColor.white.withOpacity(0.3), 0),
-          itemTextMenu('Valor inicial', () {
-            widget.onPageChanged(1);
-          }, _index == 1 ? AppColor.white : AppColor.white.withOpacity(0.3), 1),
-          itemTextMenu('Interés', () {
-            widget.onPageChanged(2);
-          }, _index == 2 ? AppColor.white : AppColor.white.withOpacity(0.3), 2),
-          itemTextMenu('Tasa de interés', () {
-            widget.onPageChanged(3);
-          }, _index == 3 ? AppColor.white : AppColor.white.withOpacity(0.3), 3),
-          itemTextMenu('Tiempo', () {
-            widget.onPageChanged(4);
-          }, _index == 4 ? AppColor.white : AppColor.white.withOpacity(0.3), 4),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                itemTextMenu('Valor final', () {
+                  widget.onPageChanged(0);
+                },
+                    _index == 0
+                        ? AppColor.white
+                        : AppColor.white.withOpacity(0.3),
+                    0),
+                itemTextMenu('Valor inicial', () {
+                  widget.onPageChanged(1);
+                },
+                    _index == 1
+                        ? AppColor.white
+                        : AppColor.white.withOpacity(0.3),
+                    1),
+                itemTextMenu('Interés', () {
+                  widget.onPageChanged(2);
+                },
+                    _index == 2
+                        ? AppColor.white
+                        : AppColor.white.withOpacity(0.3),
+                    2),
+              ],
+            ),
+          ),
+          const SizedBox(height: 25),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                itemTextMenu('Tasa de interés', () {
+                  widget.onPageChanged(3);
+                },
+                    _index == 3
+                        ? AppColor.white
+                        : AppColor.white.withOpacity(0.3),
+                    3),
+                itemTextMenu('Tiempo', () {
+                  widget.onPageChanged(4);
+                },
+                    _index == 4
+                        ? AppColor.white
+                        : AppColor.white.withOpacity(0.3),
+                    4),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -62,7 +96,7 @@ class _TopMenuWidgetState extends State<TopMenuWidget> {
         child: Center(
           child: Text(
             text,
-            style: GoogleFonts.poppins(color: color, fontSize: 10),
+            style: GoogleFonts.poppins(color: color, fontSize: 13),
           ),
         ),
       ),

@@ -48,7 +48,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               padding: EdgeInsets.only(left: widget.prefixIcon == null ? 0 : 8),
               child: Text(widget.text,
                   style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: AppColor.white.withOpacity(0.8),
                       fontWeight: FontWeight.w500)),
             ),
