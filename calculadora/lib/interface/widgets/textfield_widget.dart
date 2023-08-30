@@ -71,6 +71,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 Expanded(
                   child: widget.textfieldType != TextfieldType.date
                       ? TextField(
+                          cursorColor: AppColor.greenLigth,
                           keyboardType: TextInputType.number,
                           onChanged: (value) {
                             if (value.isNotEmpty) {

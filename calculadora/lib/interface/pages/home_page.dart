@@ -1,4 +1,5 @@
 import 'package:calculadora/interface/pages/simple/tasa_interes.page.dart';
+import 'package:calculadora/interface/pages/simple/tiempo_page.dart';
 import 'package:calculadora/interface/pages/simple/valor_final_page.dart';
 import 'package:calculadora/interface/pages/simple/valor_inicial_page.dart';
 import 'package:calculadora/interface/pages/simple/valor_interes_page.dart';
@@ -71,14 +72,12 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
           child: PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: _subPageController,
-            children: [
-              const ValorFinalSimplePage(),
-              const ValorInicialSimplePage(),
-              const ValorInteresSimplePage(),
-              const TasaInteresSimplePage(),
-              Center(
-                child: Text('5', style: TextStyle(color: AppColor.white)),
-              ),
+            children: const [
+              ValorFinalSimplePage(),
+              ValorInicialSimplePage(),
+              ValorInteresSimplePage(),
+              TasaInteresSimplePage(),
+              TiempoSimplePage()
             ],
           ),
         ),
