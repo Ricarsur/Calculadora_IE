@@ -13,6 +13,7 @@ enum TextfieldType {
 
 class TextFieldWidget extends StatefulWidget {
   final Function(DateTime)? fechaInicio;
+  final Function(String)? textoFecha;
   final Function(DateTime)? fechaFin;
   final Function(double)? valor;
   final TextfieldType? textfieldType;
@@ -31,7 +32,8 @@ class TextFieldWidget extends StatefulWidget {
       this.textfieldType = TextfieldType.number,
       this.fechaInicio,
       this.fechaFin,
-      this.valor});
+      this.valor,
+      this.textoFecha});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -116,9 +118,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   void initState() {
     super.initState();
 
-    date = '${DateFormat('dd/MM/yyyy').format(dateInicio).toString()} -'
-        // ignore: lines_longer_than_80_chars
-        ' ${DateFormat('dd/MM/yyyy').format(dateFin).toString()}';
+    date = 'Sin fecha';
     if (widget.textfieldType == TextfieldType.number) {
       textInputFormatter.add(FilteringTextInputFormatter.allow(
           RegExp(r'^(?:[1-9][0-9]*|0)(?:\.[0-9]*)?$')));
@@ -143,6 +143,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         date = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
             // ignore: lines_longer_than_80_chars
             ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+        widget.textoFecha!(date);
         widget.fechaInicio!(args.value.startDate);
         widget.fechaFin!(args.value.endDate ?? args.value.startDate);
       }
