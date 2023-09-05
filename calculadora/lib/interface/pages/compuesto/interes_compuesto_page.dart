@@ -20,7 +20,7 @@ class InteresCompuestoPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Interés compuesto",
+                  Text("Interés compuest0o",
                       style: GoogleFonts.poppins(
                           color: AppColor.white, fontSize: 18)),
                   const SizedBox(
