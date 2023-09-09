@@ -1,3 +1,4 @@
+import 'package:calculadora/interface/pages/compuesto/interes_compuesto_page.dart';
 import 'package:calculadora/interface/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,10 +43,7 @@ class _HomePageState extends State<HomePage> {
           controller: _pageController,
           children: [
             const PageInteresSimple(),
-            Center(
-              child: Text('Interes compuesto',
-                  style: TextStyle(color: AppColor.white)),
-            )
+            const InteresCompuestoPage()
           ],
         )));
   }
