@@ -37,7 +37,7 @@ class InteresCompuestoPage extends StatelessWidget {
                   const SizedBox(
                     height: 25,
                   ),
-                  interestRateInput(
+                  InterestRateInput(
                     helperText:
                         "Monto de dinero que tiene disponible para invertir inicialmente.",
                     labelText: "Capital",
@@ -46,7 +46,7 @@ class InteresCompuestoPage extends StatelessWidget {
                   SizedBox(
                     height: 25,
                   ),
-                  interestRateInput(
+                  InterestRateInput(
                       helperText:
                           "Es la cantidad de dinero relacionada con el interés por cada 100.",
                       labelText: "Tasa de interés",
@@ -54,7 +54,7 @@ class InteresCompuestoPage extends StatelessWidget {
                   SizedBox(
                     height: 25,
                   ),
-                  interestRateInput(
+                  InterestRateInput(
                       helperText:
                           "Es el saldo al final de un período en una inversión o préstamo.",
                       labelText: "Monto compuesto",

@@ -2,12 +2,12 @@ import 'package:calculadora/constants/color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class interestRateInput extends StatelessWidget {
+class InterestRateInput extends StatelessWidget {
   final String helperText;
   final String labelText;
   final IconData? icon;
   final TextEditingController controller;
-  const interestRateInput({
+  const InterestRateInput({
     super.key,
     required this.helperText,
     required this.labelText,
