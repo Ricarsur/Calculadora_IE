@@ -9,28 +9,28 @@ class InteresCompuesto {
   final double? tasaInteres;
   final double? tiempo;
 
-  double calcularCapital() {
-    double porcentaje = tasaInteres! / 100;
+  double calcularCapital(tasaInteres, montoCompuesto, tiempo) {
+    double porcentaje = tasaInteres / 100;
     double capitalCalculado =
-        montoCompuesto! / math.pow(1 + porcentaje, tiempo!);
+        montoCompuesto / math.pow(1 + porcentaje, tiempo);
     return capitalCalculado;
   }
 
-  double calcularTasaInteres() {
+  double calcularTasaInteres(montoCompuesto, capital, tiempo) {
     double interesCalculado =
-        math.pow(montoCompuesto! / capital!, 1 / tiempo!) - 1;
+        math.pow(montoCompuesto / capital, 1 / tiempo) - 1;
     return interesCalculado;
   }
 
-  double calcularTiempo(){
-    double porcentaje = tasaInteres! / 100; 
-    double capitalCalculado = math.log(montoCompuesto!) - math.log(capital!) / math.log(1+porcentaje);
+  double calcularTiempo(tasaInteres, montoCompuesto, capital){
+    double porcentaje = tasaInteres / 100; 
+    double capitalCalculado = math.log(montoCompuesto) - math.log(capital) / math.log(1+porcentaje);
     return capitalCalculado; 
   }
 
-double calcularMontoCompuesto() {
-  double porcentaje = tasaInteres! / 100; 
-  double montoCalculado = capital! * math.pow(1 + porcentaje, 8);
+double calcularMontoCompuesto(tasaInteres, capital) {
+  double porcentaje = tasaInteres / 100; 
+  double montoCalculado = capital * math.pow(1 + porcentaje, 8);
   return montoCalculado; 
 }
 

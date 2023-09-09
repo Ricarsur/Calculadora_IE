@@ -6,11 +6,12 @@ class interestRateInput extends StatelessWidget {
   final String helperText;
   final String labelText;
   final IconData? icon;
+  final TextEditingController controller;
   const interestRateInput({
     super.key,
     required this.helperText,
     required this.labelText,
-    this.icon,
+    this.icon, required this.controller,
   });
 
   @override
@@ -19,6 +20,7 @@ class interestRateInput extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 35),
       child: TextFormField(
         style: GoogleFonts.poppins(color: Colors.white),
+        controller: controller,
         keyboardType: TextInputType.number,
         cursorColor: AppColor.greenLigth,
         decoration: InputDecoration(
