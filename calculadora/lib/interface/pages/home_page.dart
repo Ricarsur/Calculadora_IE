@@ -41,10 +41,7 @@ class _HomePageState extends State<HomePage> {
             child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: [
-            const PageInteresSimple(),
-            InteresCompuestoPage()
-          ],
+          children: [const PageInteresSimple(), InteresCompuestoPage()],
         )));
   }
 }
@@ -228,30 +225,27 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
   }
 
   void calcularValorInteres() {
+    double capitalFinal = 0;
     double tasa = porcentaje / 100;
-    double valorInteress = 0;
+    double valorInteres = 0;
     setState(() {
-      int years = fechaFin.year - fechaInicio.year;
-      int months = fechaFin.month - fechaInicio.month;
-      int days = fechaFin.day - fechaInicio.day;
+      int days = fechaFin.difference(fechaInicio).inDays; // Diferencia en días
 
-      if (days < 0) {
-        months--;
-        days += daysInMonth(fechaFin.month - 1, fechaFin.year);
-      }
+      valorInteres = (valorInicial * tasa * days) / 365;
+      capitalFinal = valorInicial + valorInteres;
 
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
+      int years = days ~/ 365; // División entera para calcular años completos
+      days = days % 365; // Resto de días
 
-      valorInteress =
-          valorInicial * (tasa) * (years + (months / 12) + (days / 365));
+      int months = days ~/ 30; // Asumiendo 30 días por mes
+      days = days % 30; // Resto de días
 
       anios = years;
       meses = months;
       dias = days;
-      textoResultado = 'Interés producido: $valorInteress';
+
+      textoResultado =
+          'Interés producido: $valorInteres \n Capital final: $capitalFinal';
     });
   }
 
