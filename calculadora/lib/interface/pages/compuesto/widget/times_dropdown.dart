@@ -51,7 +51,7 @@ class _TimeWidgetState extends State<TimeWidget> {
                 value: items[0],
                 decoration: InputDecoration(
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 25),
                   labelText: 'Seleccione una opción',
                   labelStyle: GoogleFonts.poppins(
                     color: Colors.white.withOpacity(0.4),
