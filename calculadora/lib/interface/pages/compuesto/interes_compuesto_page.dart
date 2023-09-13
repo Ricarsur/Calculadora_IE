@@ -1,102 +1,203 @@
-import 'package:calculadora/constants/color.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'compuesto.dart';
 
-import '../../../models/interes_compuesto.dart';
-import 'widget/interes_rate_input.dart';
+class InteresCompuestoPage extends StatefulWidget {
+  const InteresCompuestoPage({super.key});
 
-class InteresCompuestoPage extends StatelessWidget {
-  final compuesto = InteresCompuesto();
   @override
-  final key = GlobalKey();
+  State<InteresCompuestoPage> createState() => _InteresCompuestoPageState();
+}
+
+class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
+  final compuesto = InteresCompuesto();
+  String valorCombo = "";
+  String resultado = "";
+
   final capitalController = TextEditingController();
-  final TasaIController = TextEditingController();
-  final MontoCompController = TextEditingController();
-  final tiempoController = const TextEditingValue();
-  InteresCompuestoPage({super.key});
+
+  final tasaIController = TextEditingController();
+
+  final montoCompController = TextEditingController();
+
+  final tiempoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
       body: Container(
-        child: Form(
-            key: key,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 33, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Interés compuesto",
-                      style: GoogleFonts.poppins(
-                          color: AppColor.white, fontSize: 18)),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  InterestRateInput(
-                    helperText:
-                        "Monto de dinero que tiene disponible para invertir inicialmente.",
-                    labelText: "Capital",
-                    icon: Icons.attach_money_rounded,
-                    controller: capitalController,
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  InterestRateInput(
-                    helperText:
-                        "Es la cantidad de dinero relacionada con el interés por cada 100.",
-                    labelText: "Tasa de interés",
-                    icon: Icons.percent,
-                    controller: TasaIController,
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  InterestRateInput(
-                    helperText:
-                        "Es el saldo al final de un período en una inversión o préstamo.",
-                    labelText: "Monto compuesto",
-                    icon: Icons.attach_money_rounded,
-                    controller: MontoCompController,
-                  ),
-                  const SizedBox(height: 25),
-                  Text("${compuesto.calcularCapital(12, 250000, 2)}"),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      datoCalcular(context);
-                    },
-                    child: const Text('Calcular'),
-                  )
-                ],
-              ),
-            )),
+        margin: const EdgeInsets.symmetric(horizontal: 33, vertical: 10),
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Interés compuesto",
+                    style: GoogleFonts.poppins(
+                        color: AppColor.white, fontSize: 18)),
+                const SizedBox(
+                  height: 25,
+                ),
+                InterestRateInput(
+                  helperText:
+                      "Monto de dinero que tiene disponible para invertir inicialmente.",
+                  labelText: "Capital",
+                  icon: Icons.attach_money_rounded,
+                  controller: capitalController,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                InterestRateInput(
+                  helperText:
+                      "Es la cantidad de dinero relacionada con el interés por cada 100.",
+                  labelText: "Tasa de interés",
+                  icon: Icons.percent,
+                  controller: tasaIController,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                InterestRateInput(
+                  helperText:
+                      "Es el saldo al final de un período en una inversión o préstamo.",
+                  labelText: "Monto compuesto",
+                  icon: Icons.attach_money_rounded,
+                  controller: montoCompController,
+                ),
+                const SizedBox(height: 25),
+                TimeWidget(
+                  tiempoController: tiempoController,
+                  valor: (valor) {
+                    valorCombo = valor;
+                  },
+                ),
+                const SizedBox(height: 15),
+                Text("${resultado}",
+                    style: GoogleFonts.poppins(color: Colors.white)),
+                const SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final nuevoResultado = datoCalcular(context);
+                    setState(() {
+                      resultado = nuevoResultado;
+                    });
+                  },
+                  child: const Text('Calcular'),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void datoCalcular(BuildContext context) {
-    // Obtenemos el texto de los controladores de texto
-    final capitalText = capitalController.text;
-    final tasaInteresText = TasaIController.text;
-    final montoCompuestoText = MontoCompController.text;
+  dynamic conversionFecha() {
+    var tiempoFinal;
+    final tiempo = int.parse(tiempoController.text);
+    if (capitalController.text.isEmpty) {
+      switch (valorCombo) {
+        case 'Diario':
+          tiempoFinal = tiempo / 365;
+          break;
+        case 'Mensual':
+          tiempoFinal = tiempo / 12;
+          break;
+        case 'Trimestral':
+          tiempoFinal = tiempo / 4;
+          break;
+        case 'Cuatrimestral':
+          tiempoFinal = tiempo / 3;
+          break;
+        case 'Semestral':
+          tiempoFinal = tiempo / 2;
+          break;
+        default:
+          tiempoFinal = tiempo;
+          break;
+      }
+    }else{
+      switch (valorCombo) {
+        case 'Diario':
+          tiempoFinal = tiempo / 30.417;
+          break;
+        case 'Anual':
+          tiempoFinal = tiempo * 12;
+          break;
+        case 'Trimestral':
+          tiempoFinal = tiempo * 4;
+          break;
+        case 'Cuatrimestral':
+          tiempoFinal = tiempo * 3;
+          break;
+        case 'Semestral':
+          tiempoFinal = tiempo * 2;
+          break;
+        default:
+          tiempoFinal = tiempo;
+          break;
+      }
+    }
+    return tiempoFinal;
+  }
 
-    // Verificamos si alguno de los campos está vacío
-    if (capitalText.isEmpty ||
-        tasaInteresText.isEmpty ||
-        montoCompuestoText.isEmpty) {
-      // Mostrar un mensaje de error o tomar alguna acción en caso de campos vacíos
-      // Por ejemplo, mostrar un diálogo de error
+  String datoCalcular(BuildContext context) {
+    final compuesto = InteresCompuesto();
+    final capitalText = capitalController.text;
+    final tasaInteresText = tasaIController.text;
+    final montoCompuestoText = montoCompController.text;
+    final tiempoText = tiempoController.text;
+
+    if (capitalText.isEmpty &&
+        tasaInteresText.isNotEmpty &&
+        montoCompuestoText.isNotEmpty &&
+        tiempoText.isNotEmpty) {
+      final tasa = double.parse(tasaInteresText);
+      final monto = double.parse(montoCompuestoText);
+      final tiempo = conversionFecha(); 
+
+      final res = compuesto.calcularCapital(tasa, monto, tiempo);
+      return "Capital depositadó: ${res.toString()}";
+    } else if (tasaInteresText.isEmpty &&
+        capitalText.isNotEmpty &&
+        montoCompuestoText.isNotEmpty &&
+        tiempoText.isNotEmpty) {
+      final monto = double.parse(montoCompuestoText);
+      final tiempo = conversionFecha(); 
+      final capital = double.parse(capitalText);
+      final res = compuesto.calcularTasaInteres(monto, capital, tiempo);
+      return "Tasa de interés: ${res.toString()}";
+    } else if (tasaInteresText.isNotEmpty &&
+        capitalText.isNotEmpty &&
+        montoCompuestoText.isNotEmpty &&
+        tiempoText.isEmpty) {
+      final tasa = double.parse(tasaInteresText);
+      final monto = double.parse(montoCompuestoText);
+      final capital = double.parse(capitalText);
+      final res = compuesto.calcularTiempo(tasa, monto, capital);
+      return "El Tiempo estimado es: ${res.toString()}";
+    } else if (tasaInteresText.isNotEmpty &&
+        capitalText.isNotEmpty &&
+        montoCompuestoText.isEmpty &&
+        tiempoText.isNotEmpty) {
+      final tasa = double.parse(tasaInteresText);
+      final capital = double.parse(capitalText);
+      final tiempo = conversionFecha(); 
+      final res = compuesto.calcularMontoCompuesto(tasa, capital, tiempo);
+      return "Monto compuesto: ${res.toString()}";
+    } else {
       showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: const Text('Error'),
             content: const Text(
-                'Por favor, complete todos los campos antes de calcular.'),
+                'Por favor, seleccione exactamente tres campos para realizar un cálculo.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -108,18 +209,7 @@ class InteresCompuestoPage extends StatelessWidget {
           );
         },
       );
-    } else {
-      // Si todos los campos están completos, puedes realizar el cálculo aquí
-      // Aquí puedes llamar a la función que realiza el cálculo
-      final capital = double.parse(capitalText);
-      final tasaInteres = double.parse(tasaInteresText);
-      final montoCompuesto = double.parse(montoCompuestoText);
-
-      final resultado = compuesto.calcularCapital(capital, tasaInteres,
-          tiempoController); // Asegúrate de que calcularCapital acepte los parámetros adecuados
-
-      // Mostrar el resultado o realizar otras acciones según tu necesidad
-      print('El resultado es: $resultado');
     }
+    return "";
   }
 }
