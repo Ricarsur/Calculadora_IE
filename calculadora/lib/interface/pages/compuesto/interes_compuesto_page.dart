@@ -183,7 +183,15 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
       final monto = double.parse(montoCompuestoText);
       final capital = double.parse(capitalText);
       final res = compuesto.calcularTiempo(tasa, monto, capital);
-      return "El Tiempo estimado es: ${res.toString()}";
+      int anios = res.toInt(); // Extraer los años completos
+      double mesesDecimal =
+          (res - anios) * 12; // Calcular los meses en valor decimal
+      int meses = mesesDecimal.toInt(); // Extraer los meses completos
+      double diasDecimal =
+          (mesesDecimal - meses) * 31; // Calcular los días en valor decimal
+      int dias = diasDecimal.toInt();
+
+      return 'Tiempo: ${generateTimeString(anios, meses, dias)}';
     } else if (tasaInteresText.isNotEmpty &&
         capitalText.isNotEmpty &&
         montoCompuestoText.isEmpty &&
@@ -214,5 +222,20 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
       );
     }
     return "";
+  }
+  String generateTimeString(int anio, int mes, int dia) {
+    String timeString = '';
+
+    if (anio > 0) {
+      timeString += '$anio años ';
+    }
+    if (mes > 0) {
+      timeString += '$mes meses ';
+    }
+    if (dia > 0) {
+      timeString += '$dia días';
+    }
+
+    return timeString.trim(); // Elimina espacios adicionales al final
   }
 }
