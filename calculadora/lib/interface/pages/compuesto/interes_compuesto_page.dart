@@ -38,6 +38,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                   height: 25,
                 ),
                 InterestRateInput(
+                  textfieldType: TextfieldType.number,
                   helperText:
                       "Monto de dinero que tiene disponible para invertir inicialmente.",
                   labelText: "Capital",
@@ -48,6 +49,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                   height: 25,
                 ),
                 InterestRateInput(
+                  textfieldType: TextfieldType.other,
                   helperText:
                       "Es la cantidad de dinero relacionada con el interés por cada 100.",
                   labelText: "Tasa de interés",
@@ -58,6 +60,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                   height: 25,
                 ),
                 InterestRateInput(
+                  textfieldType: TextfieldType.number,
                   helperText:
                       "Es el saldo al final de un período en una inversión o préstamo.",
                   labelText: "Monto compuesto",
@@ -72,7 +75,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                   },
                 ),
                 const SizedBox(height: 15),
-                Text("${resultado}",
+                Text(resultado,
                     style: GoogleFonts.poppins(color: Colors.white)),
                 const SizedBox(
                   height: 25,
@@ -98,7 +101,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
   }
 
   dynamic conversionFecha() {
-    var tiempoFinal;
+    num tiempoFinal;
     final tiempo = int.parse(tiempoController.text);
     if (capitalController.text.isEmpty) {
       switch (valorCombo) {
@@ -121,7 +124,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
           tiempoFinal = tiempo;
           break;
       }
-    }else{
+    } else {
       switch (valorCombo) {
         case 'Diario':
           tiempoFinal = tiempo / 30.417;
@@ -159,7 +162,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
         tiempoText.isNotEmpty) {
       final tasa = double.parse(tasaInteresText);
       final monto = double.parse(montoCompuestoText);
-      final tiempo = conversionFecha(); 
+      final tiempo = conversionFecha();
 
       final res = compuesto.calcularCapital(tasa, monto, tiempo);
       return "Capital depositadó: ${res.toString()}";
@@ -168,7 +171,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
         montoCompuestoText.isNotEmpty &&
         tiempoText.isNotEmpty) {
       final monto = double.parse(montoCompuestoText);
-      final tiempo = conversionFecha(); 
+      final tiempo = conversionFecha();
       final capital = double.parse(capitalText);
       final res = compuesto.calcularTasaInteres(monto, capital, tiempo);
       return "Tasa de interés: ${res.toString()}";
@@ -187,7 +190,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
         tiempoText.isNotEmpty) {
       final tasa = double.parse(tasaInteresText);
       final capital = double.parse(capitalText);
-      final tiempo = conversionFecha(); 
+      final tiempo = conversionFecha();
       final res = compuesto.calcularMontoCompuesto(tasa, capital, tiempo);
       return "Monto compuesto: ${res.toString()}";
     } else {

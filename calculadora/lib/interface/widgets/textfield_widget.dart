@@ -71,40 +71,102 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               children: [
                 widget.prefixIcon ?? Container(),
                 Expanded(
-                  child: widget.textfieldType != TextfieldType.date
-                      ? TextField(
-                          cursorColor: AppColor.greenLigth,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              widget.valor!(double.parse(value));
-                            } else {
-                              widget.valor!(0);
-                            }
-                          },
-                          inputFormatters: textInputFormatter,
-                          style: GoogleFonts.poppins(color: AppColor.white),
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: widget.hintText,
-                              hintStyle: GoogleFonts.poppins(
-                                  color: AppColor.white.withOpacity(0.3))),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            _showAlertDialog();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              date,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: AppColor.white),
-                            ),
-                          ),
-                        ),
-                ),
+                    child: widget.textfieldType != TextfieldType.date
+                        ? TextField(
+                            cursorColor: AppColor.greenLigth,
+                            keyboardType: TextInputType.number,
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                widget.valor!(double.parse(value));
+                              } else {
+                                widget.valor!(0);
+                              }
+                            },
+                            inputFormatters: textInputFormatter,
+                            style: GoogleFonts.poppins(color: AppColor.white),
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: widget.hintText,
+                                hintStyle: GoogleFonts.poppins(
+                                    color: AppColor.white.withOpacity(0.3))),
+                          )
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Años',
+                                      style: GoogleFonts.poppins(
+                                          color:
+                                              AppColor.white.withOpacity(0.3)),
+                                    ),
+                                    TextField(
+                                        keyboardType: TextInputType.number,
+                                        cursorColor: AppColor.greenLigth,
+                                        onChanged: (value) {
+                                          if (value.isNotEmpty) {
+                                            widget.valor!(double.parse(value));
+                                          } else {
+                                            widget.valor!(0);
+                                          }
+                                        },
+                                        inputFormatters: textInputFormatter,
+                                        style: GoogleFonts.poppins(
+                                            color: AppColor.white),
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: widget.hintText,
+                                            hintStyle: GoogleFonts.poppins(
+                                                color: AppColor.white
+                                                    .withOpacity(0.3)))),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    cursorColor: AppColor.greenLigth,
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        widget.valor!(double.parse(value));
+                                      } else {
+                                        widget.valor!(0);
+                                      }
+                                    },
+                                    inputFormatters: textInputFormatter,
+                                    style: GoogleFonts.poppins(
+                                        color: AppColor.white),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: widget.hintText,
+                                        hintStyle: GoogleFonts.poppins(
+                                            color: AppColor.white
+                                                .withOpacity(0.3)))),
+                              ),
+                              Expanded(
+                                child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    cursorColor: AppColor.greenLigth,
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        widget.valor!(double.parse(value));
+                                      } else {
+                                        widget.valor!(0);
+                                      }
+                                    },
+                                    inputFormatters: textInputFormatter,
+                                    style: GoogleFonts.poppins(
+                                        color: AppColor.white),
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: widget.hintText,
+                                        hintStyle: GoogleFonts.poppins(
+                                            color: AppColor.white
+                                                .withOpacity(0.3)))),
+                              ),
+                            ],
+                          )),
                 widget.suffixIcon ?? Container(),
               ],
             )

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
             child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: [const PageInteresSimple(), InteresCompuestoPage()],
+          children: const [PageInteresSimple(), InteresCompuestoPage()],
         )));
   }
 }
@@ -120,28 +120,150 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
         ),
         const SizedBox(height: 10),
         Visibility(
-          visible: value != 4,
-          child: TextFieldWidget(
-            text: 'Seleccione fechas',
-            textfieldType: TextfieldType.date,
-            width: 250,
-            textoFecha: (value) {
-              textFecha = value;
-            },
-            fechaInicio: (value) {
-              setState(() {
-                fechaInicio = value;
-                validar();
-              });
-            },
-            fechaFin: (value) {
-              setState(() {
-                fechaFin = value;
-                validar();
-              });
-            },
-          ),
-        ),
+            visible: value != 4,
+            child: Container(
+              width: 250,
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 5),
+              decoration: BoxDecoration(
+                color: AppColor.primary,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Ingrese fecha',
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColor.white.withOpacity(0.8),
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  const SizedBox(height: 7),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Años',
+                        style: GoogleFonts.poppins(
+                            color: AppColor.white.withOpacity(0.4)),
+                      ),
+                      Text(
+                        'Meses',
+                        style: GoogleFonts.poppins(
+                            color: AppColor.white.withOpacity(0.4)),
+                      ),
+                      Text(
+                        'Días',
+                        style: GoogleFonts.poppins(
+                            color: AppColor.white.withOpacity(0.4)),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                anios = int.parse(value);
+                              } else {
+                                anios = 0;
+                              }
+                              validar();
+                            },
+                            cursorColor: AppColor.white,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.4)),
+                              ),
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.4)),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(color: AppColor.white),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextField(
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              meses = int.parse(value);
+                            } else {
+                              meses = 0;
+                            }
+                            validar();
+                          },
+                          cursorColor: AppColor.white,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.4)),
+                            ),
+                            border: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.4)),
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(color: AppColor.white),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: TextField(
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                dias = int.parse(value);
+                              } else {
+                                dias = 0;
+                              }
+                              validar();
+                            },
+                            cursorColor: AppColor.white,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.4)),
+                              ),
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(7)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white.withOpacity(0.4)),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(color: AppColor.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            )),
         const SizedBox(height: 30),
         Text(
           textoResultado,
@@ -154,46 +276,35 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
 
   void calcularTasa() {
     setState(() {
-      int years = fechaFin.year - fechaInicio.year;
-      int months = fechaFin.month - fechaInicio.month;
-      int days = fechaFin.day - fechaInicio.day;
-
-      if (days < 0) {
-        months--;
-        days += daysInMonth(fechaFin.month - 1, fechaFin.year);
-      }
-
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
+      double pocentajes = 0;
+      int years = anios;
+      int months = meses;
+      int days = dias;
       double valorDia = ((years / 1) + (months / 12) + (days / 365));
       valorDia = valorDia * valorInicial;
 
-      porcentaje = valorInteres / valorDia;
+      pocentajes = valorInteres / valorDia;
 
-      anios = years;
-      meses = months;
-      dias = days;
-      porcentaje = porcentaje * 100;
-      textoResultado = 'Tasa de interés: $porcentaje%';
+      pocentajes = pocentajes * 100;
+      textoResultado = 'Tasa de interés: $pocentajes%';
     });
   }
 
   void calcularTiempo() {
     double tasa = porcentaje / 100;
-    double valor = 0;
-    valor = valorInicial * tasa;
+    double valor = valorInicial * tasa;
     valor = valorInteres / valor;
-    int totalDays = (valor * 365).floor();
-    int yearsInResult = totalDays ~/ 365;
-    int monthsInResult = ((totalDays % 365) ~/ 30.44).floor();
-    int daysInResult = (totalDays % 30.44).floor();
+
+    int anios = valor.toInt(); // Extraer los años completos
+    double mesesDecimal =
+        (valor - anios) * 12; // Calcular los meses en valor decimal
+    int meses = mesesDecimal.toInt(); // Extraer los meses completos
+    double diasDecimal =
+        (mesesDecimal - meses) * 31; // Calcular los días en valor decimal
+    int dias = diasDecimal.toInt(); // Extraer los días completos
+
     setState(() {
-      anios = yearsInResult;
-      meses = monthsInResult;
-      dias = daysInResult;
-      textoResultado = 'Tiempo: ${generateTimeString()}';
+      textoResultado = 'Tiempo: ${generateTimeString(anios, meses, dias)}';
     });
   }
 
@@ -201,25 +312,12 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
     double valorIni = 0;
     double tasa = porcentaje / 100;
     setState(() {
-      int years = fechaFin.year - fechaInicio.year;
-      int months = fechaFin.month - fechaInicio.month;
-      int days = fechaFin.day - fechaInicio.day;
-
-      if (days < 0) {
-        months--;
-        days += daysInMonth(fechaFin.month - 1, fechaFin.year);
-      }
-
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
+      int years = anios;
+      int months = meses;
+      int days = dias;
 
       valorIni = valorInteres / (tasa * (years + (months / 12) + (days / 365)));
 
-      anios = years;
-      meses = months;
-      dias = days;
       textoResultado = 'Monto inicial: $valorIni';
     });
   }
@@ -228,17 +326,14 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
     double capitalFinal = 0;
     double tasa = porcentaje / 100;
     double valorInteres = 0;
+    int diasTotal = 0;
     setState(() {
-      int days = fechaFin.difference(fechaInicio).inDays; // Diferencia en días
-
-      valorInteres = (valorInicial * tasa * days) / 365;
+      int years = anios;
+      int months = meses;
+      int days = dias;
+      diasTotal = years * 365 + months * 30 + days;
+      valorInteres = (valorInicial * tasa * diasTotal) / 365;
       capitalFinal = valorInicial + valorInteres;
-
-      int years = days ~/ 365; // División entera para calcular años completos
-      days = days % 365; // Resto de días
-
-      int months = days ~/ 30; // Asumiendo 30 días por mes
-      days = days % 30; // Resto de días
 
       anios = years;
       meses = months;
@@ -263,17 +358,17 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
     }
   }
 
-  String generateTimeString() {
+  String generateTimeString(int anio, int mes, int dia) {
     String timeString = '';
 
-    if (anios > 0) {
-      timeString += '$anios años ';
+    if (anio > 0) {
+      timeString += '$anio años ';
     }
-    if (meses > 0) {
-      timeString += '$meses meses ';
+    if (mes > 0) {
+      timeString += '$mes meses ';
     }
-    if (dias > 0) {
-      timeString += '$dias días';
+    if (dia > 0) {
+      timeString += '$dia días';
     }
 
     return timeString.trim(); // Elimina espacios adicionales al final
@@ -281,21 +376,27 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
 
   void validar() {
     //calcular tasa de interes y esconder el campo
-    if (valorInicial != 0 && valorInteres != 0 && textFecha != 'nada') {
+    if (valorInicial != 0 &&
+        valorInteres != 0 &&
+        (anios != 0 || meses != 0 || dias != 0)) {
       setState(() {
         value = 2;
       });
       calcularTasa();
 
       //calcular valor interes y esconder el campo
-    } else if (valorInicial != 0 && porcentaje != 0 && textFecha != 'nada') {
+    } else if (valorInicial != 0 &&
+        porcentaje != 0 &&
+        (anios != 0 || meses != 0 || dias != 0)) {
       setState(() {
         value = 3;
       });
       calcularValorInteres();
 
       //calcular Capital y esconder el campo
-    } else if (valorInteres != 0 && porcentaje != 0 && textFecha != 'nada') {
+    } else if (valorInteres != 0 &&
+        porcentaje != 0 &&
+        (anios != 0 || meses != 0 || dias != 0)) {
       setState(() {
         value = 1;
       });
