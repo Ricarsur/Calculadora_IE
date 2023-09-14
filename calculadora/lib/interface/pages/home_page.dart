@@ -1,6 +1,7 @@
 import 'package:calculadora/interface/pages/compuesto/interes_compuesto_page.dart';
 import 'package:calculadora/interface/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
@@ -166,6 +167,9 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             onChanged: (value) {
                               if (value.isNotEmpty) {
                                 anios = int.parse(value);
@@ -197,6 +201,9 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
                       ),
                       Expanded(
                         child: TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           onChanged: (value) {
                             if (value.isNotEmpty) {
                               meses = int.parse(value);
@@ -229,6 +236,9 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: TextField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             onChanged: (value) {
                               if (value.isNotEmpty) {
                                 dias = int.parse(value);
