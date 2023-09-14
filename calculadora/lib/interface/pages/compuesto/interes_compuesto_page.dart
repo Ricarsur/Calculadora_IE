@@ -9,6 +9,7 @@ class InteresCompuestoPage extends StatefulWidget {
 
 class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
   final compuesto = InteresCompuesto();
+  final List<String> resultados = [];
   String valorCombo = "";
   String resultado = "";
   double valorPeriodo = 0;
@@ -96,16 +97,43 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                   height: 25,
                 ),
                 Visibility(
-                    visible: valorPeriodo != 0,
-                    child: Column(
+                  visible: valorPeriodo != 0,
+                  child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(tiempoC, (index) {
-                        return Text(
-                          "Periodo ${index + 1} = ${calcularMontoPeriodo()}",
-                          style: GoogleFonts.poppins(color: Colors.white),
-                        );
-                      }),
-                    ))
+                      children: [
+                        DataTable(
+                          border: TableBorder.all(color: Colors.white),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ), // Cambia el color de las líneas aquí
+                          ),
+                          columns: [
+                            DataColumn(
+                                label: Text('Periodo',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white))),
+                            DataColumn(
+                                label: Text('Resultado',
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white))),
+                          ],
+                          rows: List<DataRow>.generate(tiempoC, (index) {
+                            String resultado = calcularMontoPeriodo();
+                            return DataRow(
+                              cells: [
+                                DataCell(Text("Periodo ${index + 1}",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white))),
+                                DataCell(Text(resultado,
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.white))),
+                              ],
+                            );
+                          }),
+                        ),
+                      ]),
+                )
               ],
             ),
           ],
