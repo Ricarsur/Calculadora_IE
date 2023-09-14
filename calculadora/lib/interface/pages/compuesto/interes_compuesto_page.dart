@@ -11,6 +11,9 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
   final compuesto = InteresCompuesto();
   String valorCombo = "";
   String resultado = "";
+  double valorPeriodo = 0;
+  double valorTasa = 0;
+  int tiempoC = 8;
 
   final capitalController = TextEditingController();
 
@@ -92,12 +95,33 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
                 const SizedBox(
                   height: 25,
                 ),
+                Visibility(
+                    visible: valorPeriodo != 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(tiempoC, (index) {
+                        return Text(
+                          "Periodo ${index + 1} = ${calcularMontoPeriodo()}",
+                          style: GoogleFonts.poppins(color: Colors.white),
+                        );
+                      }),
+                    ))
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  String calcularMontoPeriodo() {
+    double valor = 0;
+    setState(() {
+      valorPeriodo = valorPeriodo * (1 + valorTasa);
+      valor = valorPeriodo;
+    });
+
+    return valor.toString();
   }
 
   dynamic conversionFecha() {
@@ -160,12 +184,12 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
         tasaInteresText.isNotEmpty &&
         montoCompuestoText.isNotEmpty &&
         tiempoText.isNotEmpty) {
-      final tasa = double.parse(tasaInteresText);
+      double tasa = double.parse(tasaInteresText);
       final monto = double.parse(montoCompuestoText);
       final tiempo = conversionFecha();
 
       final res = compuesto.calcularCapital(tasa, monto, tiempo);
-      return "Capital depositadó: ${res.toString()}";
+      return "Capital depositado: ${res.toString()}";
     } else if (tasaInteresText.isEmpty &&
         capitalText.isNotEmpty &&
         montoCompuestoText.isNotEmpty &&
@@ -199,7 +223,10 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
       final tasa = double.parse(tasaInteresText);
       final capital = double.parse(capitalText);
       final tiempo = conversionFecha();
+      tiempoC = tiempo;
       final res = compuesto.calcularMontoCompuesto(tasa, capital, tiempo);
+      valorTasa = tasa / 100;
+      valorPeriodo = res;
       return "Monto compuesto: ${res.toString()}";
     } else {
       showDialog(
@@ -223,6 +250,7 @@ class _InteresCompuestoPageState extends State<InteresCompuestoPage> {
     }
     return "";
   }
+
   String generateTimeString(int anio, int mes, int dia) {
     String timeString = '';
 

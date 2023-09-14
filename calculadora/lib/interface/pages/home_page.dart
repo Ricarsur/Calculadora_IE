@@ -279,7 +279,7 @@ class _PageInteresSimpleState extends State<PageInteresSimple> {
           textoResultado,
           overflow: TextOverflow.ellipsis,
           style: GoogleFonts.poppins(color: AppColor.white, fontSize: 15),
-        )
+        ),
       ],
     );
   }
