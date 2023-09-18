@@ -24,13 +24,14 @@ class InteresCompuesto {
 
   double calcularTiempo(tasaInteres, montoCompuesto, capital){
     double porcentaje = tasaInteres / 100; 
-    double capitalCalculado = math.log(montoCompuesto) - math.log(capital) / math.log(1+porcentaje);
+    porcentaje = 1 + porcentaje;
+    double capitalCalculado = (math.log(montoCompuesto) - math.log(capital)) / math.log(porcentaje);
     return capitalCalculado; 
   }
 
-double calcularMontoCompuesto(tasaInteres, capital) {
+double calcularMontoCompuesto(tasaInteres, capital, tiempo) {
   double porcentaje = tasaInteres / 100; 
-  double montoCalculado = capital * math.pow(1 + porcentaje, 8);
+  double montoCalculado = capital * math.pow(1 + porcentaje, tiempo);
   return montoCalculado; 
 }
 
