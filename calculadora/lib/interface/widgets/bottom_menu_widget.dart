@@ -39,6 +39,22 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
                   ? AppColor.white
                   : AppColor.white.withOpacity(0.3),
               1),
+              iconButtonMenu(
+                  'Gradiente', 'assets/icons/graph.png', () {
+            widget.onPageChanged(2);
+            },
+              _currentPage == 2
+              ? AppColor.white
+              : AppColor.white.withOpacity(0.3),
+              2),
+              iconButtonMenu(
+                  'Tasa de retorno', 'assets/icons/align.png', () {
+            widget.onPageChanged(3);
+            },
+              _currentPage == 3
+              ? AppColor.white
+              : AppColor.white.withOpacity(0.3),
+              3),
         ],
       ),
     );
@@ -69,6 +85,8 @@ class _BottomMenuWidgetState extends State<BottomMenuWidget> {
               const SizedBox(height: 5),
               Text(
                 text,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: GoogleFonts.poppins(color: color, fontSize: 10),
               )
             ],
