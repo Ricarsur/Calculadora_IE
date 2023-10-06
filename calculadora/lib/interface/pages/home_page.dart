@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 import '../widgets/bottom_menu_widget.dart';
-import 'gradiente/gradientes.dart';
+import 'gradiente/gradiente_financiero.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: const [PageInteresSimple(), InteresCompuestoPage(), Gradiente(), Tir() ],
+          children: const [PageInteresSimple(), InteresCompuestoPage(), GradienteFinanciero(), Tir() ],
         )));
   }
 }
