@@ -1,4 +1,5 @@
 import 'package:calculadora/interface/pages/compuesto/interes_compuesto_page.dart';
+import 'package:calculadora/interface/pages/gradiente/home_gradientes.dart';
 import 'package:calculadora/interface/pages/tir/tasa_interes_retorno.dart';
 import 'package:calculadora/interface/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/color.dart';
 import '../widgets/bottom_menu_widget.dart';
-import 'gradiente/gradiente_financiero.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
             child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          children: const [PageInteresSimple(), InteresCompuestoPage(), GradienteFinanciero(), Tir() ],
+          children: const [PageInteresSimple(), InteresCompuestoPage(), HomeGradiente(), Tir() ],
         )));
   }
 }

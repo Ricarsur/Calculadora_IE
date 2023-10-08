@@ -1,7 +1,7 @@
-import 'gradiente.dart';
+import '../gradiente.dart';
 
-class GradienteFinanciero extends StatelessWidget {
-  const GradienteFinanciero({super.key});
+class GradienteAritmetico extends StatelessWidget {
+  const GradienteAritmetico({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,6 @@ class GradienteFinanciero extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const TitleGradient(),
                 const SizedBox(height: 25),
                 GroupInput(
                     montoController: montoController,
@@ -88,14 +87,4 @@ class GroupInput extends StatelessWidget {
   }
 }
 
-class TitleGradient extends StatelessWidget {
-  const TitleGradient({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Text("Gradiente",
-        style: GoogleFonts.poppins(color: AppColor.white, fontSize: 18));
-  }
-}
