@@ -75,6 +75,17 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     );
   }
 
+  double infinito() {
+    double valor = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+
+    valor = GradienteGeometrico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes);
+    return valor;
+  }
+
   double gradientePositivo() {
     double gradiente = 0;
     final monto = double.parse(montoController.text);
