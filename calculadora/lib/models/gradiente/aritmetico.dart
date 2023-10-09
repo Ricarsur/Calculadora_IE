@@ -18,7 +18,7 @@ class GradienteGeometrico {
   }
 
   static double calcularPresenteInfinito(
-      {required double A, required double G, required double I}) {
-    return A / I + G / (I * I);
+      {required double A, required double G, required double I, required bool positivo}) {
+    return positivo ? A / I + G / (I * I) : A / I - G / (I * I);
   }
 }
