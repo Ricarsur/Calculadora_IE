@@ -1,13 +1,19 @@
 import 'widgets.dart';
 
-class DrowdownBox extends StatelessWidget {
+class DrowdownBox extends StatefulWidget {
   const DrowdownBox({
     super.key,
-    required this.gradient,
+    required this.gradient, required this.valorCombo,
   });
 
   final List<String> gradient;
+   final Function(String) valorCombo; 
 
+  @override
+  State<DrowdownBox> createState() => _DrowdownBoxState();
+}
+
+class _DrowdownBoxState extends State<DrowdownBox> {
   @override
   Widget build(BuildContext context) {
     var inputBorde = OutlineInputBorder(
@@ -23,10 +29,10 @@ class DrowdownBox extends StatelessWidget {
       fillColor: AppColor.primary,
     );
     return DropdownButtonFormField(
-        value: gradient[0],
+        value: widget.gradient[0],
         decoration: inputDecoration,
         dropdownColor: AppColor.primary,
-        items: gradient.map((items) {
+        items: widget.gradient.map((items) {
           return DropdownMenuItem(
             value: items,
             child: Text(items,
@@ -36,6 +42,10 @@ class DrowdownBox extends StatelessWidget {
                 )),
           );
         }).toList(),
-        onChanged: (value) {});
+        onChanged: (value) {
+          setState(() {
+            widget.valorCombo(value!); 
+          });
+        });
   }
 }

@@ -1,5 +1,3 @@
-
-
 import 'pages.dart';
 
 class GradienteAritmetico extends StatefulWidget {
@@ -11,14 +9,20 @@ class GradienteAritmetico extends StatefulWidget {
 
 class _GradienteAritmeticoState extends State<GradienteAritmetico> {
   final resultadoController = ResultadoController();
+  final interesController = TextEditingController();
+  final montoController = TextEditingController();
+  final tasaCrecimientoController = TextEditingController();
+  final numeroPeriodoController = TextEditingController();
+  double resultadoPositivo = 0;
+  double resultadoNegativo = 0;
+  String valueCombo = "";
   @override
   Widget build(BuildContext context) {
-    final interesController = TextEditingController();
-    final montoController = TextEditingController();
-    final tasaCrecimientoController = TextEditingController();
-    final numeroPeriodoController = TextEditingController();
-    double resultado = 0;
-    final List<String> gradient = ['Valor futuro', 'Valor presente'];
+    final List<String> gradient = [
+      'Valor futuro',
+      'Valor presente',
+      'Valor presente infinito'
+    ];
     return Scaffold(
       backgroundColor: AppColor.background,
       body: Container(
@@ -36,31 +40,30 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
                   numeroPeriodoController: numeroPeriodoController,
                 ),
                 const SizedBox(height: 25),
-                DrowdownBox(gradient: gradient),
-                const SizedBox(height: 25),
-                Button(
-                  calculo: () {
-                    final monto = double.parse(montoController.text);
-                    final tasaCrecimiento =
-                        double.parse(tasaCrecimientoController.text);
-                    final interes = double.parse(interesController.text) / 100;
-                    final numeroPeriodo =
-                        int.parse(numeroPeriodoController.text);
-                    resultado = GradienteGeometrico.calcularValorPresente(
-                      A: monto,
-                      g: tasaCrecimiento,
-                      i: interes,
-                      n: numeroPeriodo,
-                      positivo: true,
-                    );
-                    resultadoController.actualizarResultado(resultado);
+                DrowdownBox(
+                  gradient: gradient,
+                  valorCombo: (value) {
+                    valueCombo = value;
                     setState(() {});
                   },
                 ),
+                const SizedBox(height: 25),
+                ResultLabel(resultadoController: resultadoController),
                 const SizedBox(
                   height: 25,
                 ),
-                ResultLabel(resultadoController: resultadoController),
+                Button(
+                  calculo: () {
+                    resultadoPositivo = gradientePositivo();
+                    resultadoNegativo = gradienteNegativo();
+                    resultadoController
+                        .actualizarResultadoPositivo(resultadoPositivo);
+                    resultadoController
+                        .actualizarResultadoNegativo(resultadoNegativo);
+
+                    setState(() {});
+                  },
+                ),
                 const SizedBox(
                   height: 25,
                 ),
@@ -71,9 +74,38 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
       ),
     );
   }
+
+  double gradientePositivo() {
+    double gradiente = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = int.parse(numeroPeriodoController.text);
+    gradiente = GradienteGeometrico.calcularValorPresente(
+      A: monto,
+      g: tasaCrecimiento,
+      i: interes,
+      n: numeroPeriodo,
+      positivo: true,
+    );
+
+    return gradiente;
+  }
+
+  double gradienteNegativo() {
+    double gradiente = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = int.parse(numeroPeriodoController.text);
+    gradiente = GradienteGeometrico.calcularValorPresente(
+      A: monto,
+      g: tasaCrecimiento,
+      i: interes,
+      n: numeroPeriodo,
+      positivo: false,
+    );
+
+    return gradiente;
+  }
 }
-
-
-
-
-

@@ -1,5 +1,3 @@
-
-
 import 'widgets.dart';
 
 class ResultLabel extends StatelessWidget {
@@ -12,8 +10,14 @@ class ResultLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Valor: ${resultadoController.resultado} ',
-        style: GoogleFonts.poppins(
-            color: AppColor.white, fontSize: 12));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Presente positivo: ${resultadoController.resultadoPositivo} ',
+            style: GoogleFonts.poppins(color: AppColor.white, fontSize: 12)),
+        Text('Presente negativo: ${resultadoController.resultadoNegativo} ',
+            style: GoogleFonts.poppins(color: AppColor.white, fontSize: 12))
+      ],
+    );
   }
 }
