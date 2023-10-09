@@ -1,4 +1,4 @@
-import 'gradiente.dart';
+import 'pages/pages.dart';
 import 'pages/gradiente_aritmetico.dart';
 
 class HomeGradiente extends StatelessWidget {
