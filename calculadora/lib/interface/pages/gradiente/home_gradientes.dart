@@ -14,11 +14,11 @@ class HomeGradiente extends StatelessWidget {
           title: const Center(child: Text('Gradiente')),
           bottom: const TabBar(indicatorColor: Colors.white, tabs: [
             Tab(
-              text: 'Geométrico',
+              text: 'Aritmetico',
             ),
             Tab(
-              text: 'Aritmetico',
-            )
+              text: 'Geométrico',
+            ),
           ]),
         ),
         body: const TabBarView(children: [
