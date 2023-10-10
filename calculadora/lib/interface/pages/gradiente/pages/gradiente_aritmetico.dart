@@ -54,13 +54,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
                 ),
                 Button(
                   calculo: () {
-                    resultadoPositivo = gradientePositivo();
-                    resultadoNegativo = gradienteNegativo();
-                    resultadoController
-                        .actualizarResultadoPositivo(resultadoPositivo);
-                    resultadoController
-                        .actualizarResultadoNegativo(resultadoNegativo);
-
+                    tipOperation(valueCombo);
                     setState(() {});
                   },
                 ),
@@ -73,6 +67,26 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
         ),
       ),
     );
+  }
+
+  void tipOperation(String option) {
+    switch (option) {
+      case 'Valor futuro':
+        break;
+      case 'Valor presente':
+        resultadoPositivo = gradientePositivo();
+        resultadoNegativo = gradienteNegativo();
+        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
+        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+
+        break;
+      case 'Valor presente infinito':
+        resultadoPositivo = infinitoPositivo();
+        resultadoNegativo = infinitoNegativo();
+        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
+        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+        break;
+    }
   }
 
   double infinitoPositivo() {
