@@ -79,7 +79,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
         A: monto,
         i: interes,
         n: numeroPeriodo,
-        g: tasaCrecimiento,
+        g: tasaCrecimiento, 
         positivo: false);
 
     return futuro;
