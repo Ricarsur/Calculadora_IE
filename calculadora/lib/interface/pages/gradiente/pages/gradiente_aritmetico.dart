@@ -69,46 +69,53 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     );
   }
 
-  void tipOperation(String option) {
-    switch (option) {
-      case 'Valor futuro':
-        break;
-      case 'Valor presente':
-        resultadoPositivo = gradientePositivo();
-        resultadoNegativo = gradienteNegativo();
-        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
-        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
-
-        break;
-      case 'Valor presente infinito':
-        resultadoPositivo = infinitoPositivo();
-        resultadoNegativo = infinitoNegativo();
-        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
-        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
-        break;
-    }
-  }
-
-  double infinitoPositivo() {
-    double valor = 0;
+  double futuroNegativo() {
+    double futuro = 0;
     final monto = double.parse(montoController.text);
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = int.parse(numeroPeriodoController.text);
+    futuro = GradienteGeometrico.CalcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: false);
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(
-        A: monto, G: tasaCrecimiento, I: interes, positivo: true);
-    return valor;
+    return futuro;
   }
 
-  double infinitoNegativo() {
-    double valor = 0;
+  double futuroPositivo() {
+    double futuro = 0;
     final monto = double.parse(montoController.text);
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = int.parse(numeroPeriodoController.text);
+    futuro = GradienteGeometrico.CalcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: true);
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(
-        A: monto, G: tasaCrecimiento, I: interes, positivo: false);
-    return valor;
+    return futuro;
+  }
+
+  double gradienteNegativo() {
+    double gradiente = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = int.parse(numeroPeriodoController.text);
+    gradiente = GradienteGeometrico.calcularValorPresente(
+      A: monto,
+      g: tasaCrecimiento,
+      i: interes,
+      n: numeroPeriodo,
+      positivo: false,
+    );
+
+    return gradiente;
   }
 
   double gradientePositivo() {
@@ -128,20 +135,50 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     return gradiente;
   }
 
-  double gradienteNegativo() {
-    double gradiente = 0;
+  double infinitoNegativo() {
+    double valor = 0;
     final monto = double.parse(montoController.text);
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
-    final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    gradiente = GradienteGeometrico.calcularValorPresente(
-      A: monto,
-      g: tasaCrecimiento,
-      i: interes,
-      n: numeroPeriodo,
-      positivo: false,
-    );
 
-    return gradiente;
+    valor = GradienteGeometrico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: false);
+    return valor;
+  }
+
+  double infinitoPositivo() {
+    double valor = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+
+    valor = GradienteGeometrico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: true);
+    return valor;
+  }
+
+  void tipOperation(String option) {
+    switch (option) {
+      case 'Valor futuro':
+        resultadoPositivo = futuroPositivo();
+        resultadoPositivo = futuroNegativo();
+        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
+        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+
+        break;
+      case 'Valor presente':
+        resultadoPositivo = gradientePositivo();
+        resultadoNegativo = gradienteNegativo();
+        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
+        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+
+        break;
+      case 'Valor presente infinito':
+        resultadoPositivo = infinitoPositivo();
+        resultadoNegativo = infinitoNegativo();
+        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
+        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+        break;
+    }
   }
 }
