@@ -13,12 +13,18 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
   final montoController = TextEditingController();
   final tasaCrecimientoController = TextEditingController();
   final numeroPeriodoController = TextEditingController();
+  double resultadoFuturoPositivo = 0;
+  double resultadoFuturoNegativo = 0;
   double resultadoPositivo = 0;
   double resultadoNegativo = 0;
   String valueCombo = "Valor futuro";
   @override
   Widget build(BuildContext context) {
-    final List<String> gradient = ['Valor futuro', 'Valor presente', 'Valor presente infinito'];
+    final List<String> gradient = [
+      'Valor futuro',
+      'Valor presente',
+      'Valor presente infinito'
+    ];
     return Scaffold(
       backgroundColor: AppColor.background,
       body: Container(
@@ -71,7 +77,12 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = GradienteGeometrico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
+    futuro = GradienteGeometrico.calcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: false);
 
     return futuro;
   }
@@ -82,7 +93,12 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = GradienteGeometrico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: true);
+    futuro = GradienteGeometrico.calcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: true);
 
     return futuro;
   }
@@ -127,7 +143,8 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: false);
+    valor = GradienteGeometrico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: false);
     return valor;
   }
 
@@ -137,17 +154,20 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: true);
+    valor = GradienteGeometrico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: true);
     return valor;
   }
 
   void tipOperation(String option) {
     switch (option) {
       case 'Valor futuro':
-        resultadoPositivo = futuroPositivo();
-        resultadoPositivo = futuroNegativo();
-        resultadoController.actualizarResultadoPositivo(resultadoPositivo);
-        resultadoController.actualizarResultadoNegativo(resultadoNegativo);
+        resultadoFuturoPositivo = futuroPositivo();
+        resultadoFuturoNegativo = futuroNegativo();
+        resultadoController
+            .actualizarResultadoPositivo(resultadoFuturoPositivo);
+        resultadoController
+            .actualizarResultadoNegativo(resultadoFuturoNegativo);
 
         break;
       case 'Valor presente':
