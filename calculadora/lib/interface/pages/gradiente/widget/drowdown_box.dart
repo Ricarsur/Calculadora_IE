@@ -1,4 +1,4 @@
-import 'widgets.dart';
+import '../aritmetico/widgets/widgets.dart';
 
 class DrowdownBox extends StatefulWidget {
   const DrowdownBox({

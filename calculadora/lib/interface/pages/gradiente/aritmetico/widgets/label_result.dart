@@ -1,12 +1,12 @@
 import 'widgets.dart';
 
-class ResultLabel extends StatelessWidget {
-  const ResultLabel({
+class ResultAritmetico extends StatelessWidget {
+  const ResultAritmetico({
     super.key,
     required this.resultadoController,
   });
 
-  final ResultadoController resultadoController;
+  final ResultadoAritmeticoController resultadoController;
 
   @override
   Widget build(BuildContext context) {

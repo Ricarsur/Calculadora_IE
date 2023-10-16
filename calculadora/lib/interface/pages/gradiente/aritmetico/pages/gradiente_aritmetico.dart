@@ -1,3 +1,5 @@
+
+
 import 'pages.dart';
 
 class GradienteAritmetico extends StatefulWidget {
@@ -8,7 +10,7 @@ class GradienteAritmetico extends StatefulWidget {
 }
 
 class _GradienteAritmeticoState extends State<GradienteAritmetico> {
-  final resultadoController = ResultadoController();
+  final resultadoController = ResultadoAritmeticoController();
   final interesController = TextEditingController();
   final montoController = TextEditingController();
   final tasaCrecimientoController = TextEditingController();
@@ -32,7 +34,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 25),
-                GroupInput(
+                GroupInputA(
                   visible: visible,
                   montoController: montoController,
                   tasaCrecimientoController: tasaCrecimientoController,
@@ -54,7 +56,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
                   },
                 ),
                 const SizedBox(height: 25),
-                ResultLabel(resultadoController: resultadoController),
+                ResultAritmetico(resultadoController: resultadoController),
                 const SizedBox(
                   height: 25,
                 ),
@@ -81,7 +83,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = GradienteGeometrico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
+    futuro = MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
 
     return futuro;
   }
@@ -92,7 +94,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = GradienteGeometrico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: true);
+    futuro = MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: true);
 
     return futuro;
   }
@@ -103,7 +105,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    gradiente = GradienteGeometrico.calcularValorPresente(
+    gradiente = MGradienteAritmetico.calcularValorPresente(
       A: monto,
       g: tasaCrecimiento,
       i: interes,
@@ -120,7 +122,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    gradiente = GradienteGeometrico.calcularValorPresente(
+    gradiente = MGradienteAritmetico.calcularValorPresente(
       A: monto,
       g: tasaCrecimiento,
       i: interes,
@@ -137,7 +139,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: false);
+    valor = MGradienteAritmetico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: false);
     return valor;
   }
 
@@ -147,7 +149,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = GradienteGeometrico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: true);
+    valor = MGradienteAritmetico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: true);
     return valor;
   }
 

@@ -1,4 +1,4 @@
-class ResultadoController {
+class ResultadoAritmeticoController {
   double _resultadoPositivo = 0;
   double _resultadoNegativo = 0;
 

@@ -1,5 +1,6 @@
-import 'pages/pages.dart';
-import 'pages/gradiente_aritmetico.dart';
+import 'aritmetico/pages/pages.dart';
+import 'aritmetico/pages/gradiente_aritmetico.dart';
+import 'geometrico/pages/gradiente_geometrico.dart';
 
 class HomeGradiente extends StatelessWidget {
   const HomeGradiente({super.key});
@@ -23,7 +24,7 @@ class HomeGradiente extends StatelessWidget {
         ),
         body: const TabBarView(children: [
           GradienteAritmetico(),
-          Text('Hola'),
+          GradienteGeometrico(),
         ]),
       ),
     );

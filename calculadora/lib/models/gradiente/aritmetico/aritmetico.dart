@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class GradienteGeometrico {
+class MGradienteAritmetico {
   static double calcularPresenteInfinito(
       {required double A,
       required double G,

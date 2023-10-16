@@ -1,13 +1,13 @@
 import 'widgets.dart';
 
-class GroupInput extends StatefulWidget {
+class GroupInputA extends StatefulWidget {
   final bool visible;
   final TextEditingController montoController;
 
   final TextEditingController tasaCrecimientoController;
   final TextEditingController interesController;
   final TextEditingController numeroPeriodoController;
-  const GroupInput({
+  const GroupInputA({
     super.key,
     required this.montoController,
     required this.tasaCrecimientoController,
@@ -17,10 +17,10 @@ class GroupInput extends StatefulWidget {
   });
 
   @override
-  State<GroupInput> createState() => _GroupInputState();
+  State<GroupInputA> createState() => _GroupInputAState();
 }
 
-class _GroupInputState extends State<GroupInput> {
+class _GroupInputAState extends State<GroupInputA> {
   @override
   Widget build(BuildContext context) {
     return Column(
