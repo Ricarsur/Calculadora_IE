@@ -1,20 +1,26 @@
-
 import 'widgets.dart';
 
-class GroupInput extends StatelessWidget {
+class GroupInput extends StatefulWidget {
+  final bool visible;
+  final TextEditingController montoController;
+
+  final TextEditingController tasaCrecimientoController;
+  final TextEditingController interesController;
+  final TextEditingController numeroPeriodoController;
   const GroupInput({
     super.key,
     required this.montoController,
     required this.tasaCrecimientoController,
     required this.interesController,
     required this.numeroPeriodoController,
+    required this.visible,
   });
 
-  final TextEditingController montoController;
-  final TextEditingController tasaCrecimientoController;
-  final TextEditingController interesController;
-  final TextEditingController numeroPeriodoController;
+  @override
+  State<GroupInput> createState() => _GroupInputState();
+}
 
+class _GroupInputState extends State<GroupInput> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,34 +30,34 @@ class GroupInput extends StatelessWidget {
           helperText: "Valor del primer pago o anualidad inicial",
           labelText: "Monto inicial",
           icon: Icons.attach_money_rounded,
-          controller: montoController,
+          controller: widget.montoController,
         ),
         const SizedBox(height: 25),
         InterestRateInput(
           textfieldType: TextfieldType.number,
-          helperText:
-              "Tasa de crecimiento anual o diferencia entre pagos consecutivos",
+          helperText: "Tasa de crecimiento anual o diferencia entre pagos consecutivos",
           labelText: "Tasa crecimiento",
           icon: Icons.attach_money_rounded,
-          controller: tasaCrecimientoController,
+          controller: widget.tasaCrecimientoController,
+        ),
+        Visibility(visible: widget.visible, child: const SizedBox(height: 25)),
+        Visibility(
+          visible: widget.visible,
+          child: InterestRateInput(
+            textfieldType: TextfieldType.number,
+            labelText: "Número de períodos",
+            helperText: "Indica la cantidad de veces que se aplicará el incremento.",
+            icon: Icons.calendar_today,
+            controller: widget.numeroPeriodoController,
+          ),
         ),
         const SizedBox(height: 25),
         InterestRateInput(
           textfieldType: TextfieldType.number,
-          labelText: "Número de períodos",
-          helperText:
-              "Indica la cantidad de veces que se aplicará el incremento.",
-          icon: Icons.calendar_today,
-          controller: numeroPeriodoController,
-        ),
-        const SizedBox(height: 25),
-        InterestRateInput(
-          textfieldType: TextfieldType.number,
-          helperText:
-              "Tasa de interés por periodo, expresada en formato decimal",
+          helperText: "Tasa de interés por periodo, expresada en formato decimal",
           labelText: "Interes",
           icon: Icons.percent,
-          controller: interesController,
+          controller: widget.interesController,
         ),
       ],
     );
