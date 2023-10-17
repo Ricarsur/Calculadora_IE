@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class GradienteGeometrio {
+class MGradienteGeometrico {
   //VALOR FUTURO
   static double ValorFuturoGeoAnticipado_GdiferentI(
       {required A, required G, required I, required N}) {

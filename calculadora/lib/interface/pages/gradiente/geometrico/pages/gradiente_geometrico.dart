@@ -1,6 +1,5 @@
-
 import 'package:calculadora/interface/pages/gradiente/geometrico/pages/pages.dart';
-
+import 'package:calculadora/models/gradiente/geometrico.dart';
 
 class GradienteGeometrico extends StatefulWidget {
   const GradienteGeometrico({super.key});
@@ -11,12 +10,16 @@ class GradienteGeometrico extends StatefulWidget {
 
 class _GradienteAritmeticoState extends State<GradienteGeometrico> {
   final resultadoGeometricoController = ResultadoGeomtricoController();
-
   final interesMensualController = TextEditingController();
   final montoPrestadoController = TextEditingController();
   final incrementoPorcentualController = TextEditingController();
   final periodoGraciaController = TextEditingController();
   final plazoPrestamoController = TextEditingController();
+  double resultadoFuturoAnticipado = 0;
+  double resultadoFuturoVencido = 0;
+  double resultadoPresenteVencido = 0;
+  double resultadoPresenteAnticipado = 0;
+  double resultadoinfinito = 0;
 
   double resultadoGeometrico = 0;
   String valueCombo = "Anticipado";
@@ -56,7 +59,8 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
                   },
                 ),
                 const SizedBox(height: 25),
-                ResultadoGeometrico(resultadoController: resultadoGeometricoController),
+                ResultadoGeometrico(
+                    resultadoController: resultadoGeometricoController),
                 const SizedBox(
                   height: 25,
                 ),
@@ -74,5 +78,33 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
         ),
       ),
     );
+  }
+
+  double futuroAnticipado() {
+    double FuturoAnticipado = 0;
+    final monto = double.parse(montoPrestadoController.text);
+    final interes = double.parse(interesMensualController.text) / 100;
+    final aumento = double.parse(incrementoPorcentualController.text) / 100;
+    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    if (aumento == interes) {
+      FuturoAnticipado = MGradienteGeometrico.ValorFuturoGeoAnticipado_GigualI(
+          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    } else if (aumento == interes) {
+      FuturoAnticipado =
+          MGradienteGeometrico.ValorFuturoGeoAnticipado_GdiferentI(
+              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    }
+    return FuturoAnticipado;
+  }
+
+  void tipOperation(String option) {
+    switch (option) {
+      case 'Valor futuro':
+        resultadoFuturoAnticipado = futuroAnticipado();
+        resultadoGeometricoController
+            .actualizarResultadoPositivo(resultadoFuturoAnticipado);
+
+        break;
+    }
   }
 }
