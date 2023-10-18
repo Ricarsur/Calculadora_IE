@@ -20,6 +20,22 @@ class GroupInputA extends StatefulWidget {
   State<GroupInputA> createState() => _GroupInputAState();
 }
 
+class GroupInputT extends StatefulWidget {
+  final TextEditingController montoController;
+  final TextEditingController interesController;
+  final TextEditingController primerAnioController;
+  final TextEditingController segundoAnioController;
+  const GroupInputT(
+      {super.key,
+      required this.montoController,
+      required this.interesController,
+      required this.primerAnioController,
+      required this.segundoAnioController});
+
+  @override
+  State<GroupInputT> createState() => _GroupInputTState();
+}
+
 class _GroupInputAState extends State<GroupInputA> {
   @override
   Widget build(BuildContext context) {
@@ -58,6 +74,47 @@ class _GroupInputAState extends State<GroupInputA> {
           labelText: "Interes",
           icon: Icons.percent,
           controller: widget.interesController,
+        ),
+      ],
+    );
+  }
+}
+
+class _GroupInputTState extends State<GroupInputT> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        InterestRateInput(
+          textfieldType: TextfieldType.number,
+          helperText: "Valor del primer pago",
+          labelText: "Monto inicial",
+          icon: Icons.attach_money_rounded,
+          controller: widget.montoController,
+        ),
+        const SizedBox(height: 25),
+        InterestRateInput(
+          textfieldType: TextfieldType.number,
+          helperText: "Tasa de interés por periodo, expresada en formato decimal",
+          labelText: "Interes",
+          icon: Icons.percent,
+          controller: widget.interesController,
+        ),
+        const SizedBox(height: 25),
+        InterestRateInput(
+          textfieldType: TextfieldType.number,
+          helperText: "Valor del flujo del primer año",
+          labelText: "Flujo del primer añio",
+          icon: Icons.attach_money_rounded,
+          controller: widget.primerAnioController,
+        ),
+        const SizedBox(height: 25),
+        InterestRateInput(
+          textfieldType: TextfieldType.number,
+          helperText: "Valor del flujo del segundo año",
+          labelText: "Flujo del segundo añio",
+          icon: Icons.attach_money_rounded,
+          controller: widget.segundoAnioController,
         ),
       ],
     );

@@ -1,5 +1,3 @@
-
-
 import 'pages.dart';
 
 class GradienteAritmetico extends StatefulWidget {
@@ -83,7 +81,8 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
+    futuro =
+        MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
 
     return futuro;
   }
