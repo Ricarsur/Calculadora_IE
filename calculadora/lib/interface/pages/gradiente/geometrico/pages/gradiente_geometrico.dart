@@ -23,6 +23,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
 
   double resultadoGeometrico = 0;
   String valueCombo = "Anticipado";
+  String ValuePFI = "Presente";
   bool visible = true;
 
   @override
@@ -30,6 +31,11 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final List<String> gradient = [
       'Anticipado',
       'Vencido',
+    ];
+    final List<String> gradient2 = [
+      'Presente',
+      'Futuro',
+      'infinito',
     ];
     return Scaffold(
       backgroundColor: AppColor.background,
@@ -59,6 +65,14 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
                   },
                 ),
                 const SizedBox(height: 25),
+                DrowdownBox(
+                  gradient: gradient2,
+                  valorCombo: (value) {
+                    ValuePFI = value;
+                    setState(() {});
+                  },
+                ),
+                const SizedBox(height: 25),
                 ResultadoGeometrico(
                     resultadoController: resultadoGeometricoController),
                 const SizedBox(
@@ -66,6 +80,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
                 ),
                 Button(
                   calculo: () {
+                    tipOperation(ValuePFI);
                     setState(() {});
                   },
                 ),
@@ -89,7 +104,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     if (aumento == interes) {
       FuturoAnticipado = MGradienteGeometrico.ValorFuturoGeoAnticipado_GigualI(
           A: monto, G: aumento, I: interes, N: numeroPeriodos);
-    } else if (aumento == interes) {
+    } else if (aumento != interes) {
       FuturoAnticipado =
           MGradienteGeometrico.ValorFuturoGeoAnticipado_GdiferentI(
               A: monto, G: aumento, I: interes, N: numeroPeriodos);
@@ -97,13 +112,98 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     return FuturoAnticipado;
   }
 
+  double futuroVencido() {
+    double futuroVencido = 0;
+    final monto = double.parse(montoPrestadoController.text);
+    final interes = double.parse(interesMensualController.text) / 100;
+    final aumento = double.parse(incrementoPorcentualController.text) / 100;
+    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    if (aumento == interes) {
+      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GigualI(
+          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    } else if (aumento != interes) {
+      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GdiferentI(
+          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    }
+    return futuroVencido;
+  }
+
+  double infinito() {
+    double valor = 0;
+    final monto = double.parse(montoPrestadoController.text);
+    final interes = double.parse(interesMensualController.text) / 100;
+    final aumento = double.parse(incrementoPorcentualController.text) / 100;
+    valor =
+        MGradienteGeometrico.ValorInfinito(A: monto, I: interes, G: aumento);
+    return valor;
+  }
+
+  double presenteAnticipado() {
+    double presenteAnticipado = 0;
+    final monto = double.parse(montoPrestadoController.text);
+    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    final interes = double.parse(interesMensualController.text) / 100;
+    final aumento = double.parse(incrementoPorcentualController.text) / 100;
+    if (aumento == interes) {
+      presenteAnticipado =
+          MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GigualI(
+              A: monto, N: numeroPeriodos);
+    } else if (aumento != interes) {
+      presenteAnticipado =
+          MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GdiferentI(
+              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    }
+    return presenteAnticipado;
+  }
+
+  double presenteVencido() {
+    double presenteVencido = 0;
+    final monto = double.parse(montoPrestadoController.text);
+    final interes = double.parse(interesMensualController.text) / 100;
+    final aumento = double.parse(incrementoPorcentualController.text) / 100;
+    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    if (aumento == interes) {
+      presenteVencido =
+          MGradienteGeometrico.ValorPresenteGeometricoVencido_GigualI(
+              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    } else if (aumento != interes) {
+      presenteVencido =
+          MGradienteGeometrico.ValorPresenteGeometricoVencido_GdiferentI(
+              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+    }
+    return presenteVencido;
+  }
+
   void tipOperation(String option) {
     switch (option) {
       case 'Valor futuro':
-        resultadoFuturoAnticipado = futuroAnticipado();
+        switch (valueCombo) {
+          case 'Anticipado':
+            resultadoFuturoAnticipado = futuroAnticipado();
+            break;
+          case 'Vencido':
+            resultadoFuturoAnticipado = futuroVencido();
+            break;
+        }
         resultadoGeometricoController
             .actualizarResultadoPositivo(resultadoFuturoAnticipado);
-
+        break;
+      case 'Valor presente':
+        switch (valueCombo) {
+          case 'Anticipado':
+            resultadoPresenteAnticipado = presenteAnticipado();
+            break;
+          case 'Vencido':
+            resultadoPresenteVencido = presenteVencido();
+            break;
+        }
+        resultadoGeometricoController
+            .actualizarResultadoPositivo(resultadoPresenteAnticipado);
+        break;
+      case 'infinito':
+        resultadoinfinito = infinito();
+        resultadoGeometricoController
+            .actualizarResultadoPositivo(resultadoinfinito);
         break;
     }
   }
