@@ -77,7 +77,7 @@ class _TirState extends State<Tir> {
     double primerFlujo = double.parse(primerFlujoController.text);
     double segundoFlujo = double.parse(segundoFlujoController.text);
     valorActual = TasaInternaRetorno.calcularTIR(primerFlujo, segundoFlujo, monto);
-    return valorActual;
+    return valorActual * 100;
   }
 
   double calcularVAN() {
