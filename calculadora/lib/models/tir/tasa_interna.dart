@@ -7,7 +7,7 @@ class TasaInternaRetorno {
     print(inversion);
     double epsilon = 0.0001;
     double a = 0.0;
-    double b = 0.2; // Establecer límite superior según el escenario
+    double b = 0.5; // Establecer límite superior según el escenario
 
     double tir = (a + b) / 2;
 
