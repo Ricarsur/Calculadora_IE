@@ -10,12 +10,11 @@ class GradienteGeometrico extends StatefulWidget {
 
 class _GradienteAritmeticoState extends State<GradienteGeometrico> {
   final resultadoGeometricoController = ResultadoGeomtricoController();
-  
+
   final interesMensualController = TextEditingController();
   final montoPrestadoController = TextEditingController();
   final incrementoPorcentualController = TextEditingController();
   final numeroPeriodoController = TextEditingController();
-
 
   double resultadoFuturoAnticipado = 0;
   double resultadoFuturoVencido = 0;
@@ -134,8 +133,12 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final monto = double.parse(montoPrestadoController.text);
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
-    valor =
-        MGradienteGeometrico.ValorInfinito(A: monto, I: interes, G: aumento);
+    if (aumento < interes) {
+      valor =
+          MGradienteGeometrico.ValorInfinito(A: monto, I: interes, G: aumento);
+    } else {
+      print('error');
+    }
     return valor;
   }
 
