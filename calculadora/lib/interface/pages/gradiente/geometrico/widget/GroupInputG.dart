@@ -6,16 +6,14 @@ class GroupInputG extends StatefulWidget {
   final TextEditingController interesMensualController;
   final TextEditingController montoPrestadoController;
   final TextEditingController incrementoPorcentualController;
-  final TextEditingController periodoGraciaController;
-  final TextEditingController plazoPrestamoController;
+  final TextEditingController numeroPeriodoController;
   const GroupInputG({
     super.key,
     required this.visible,
     required this.interesMensualController,
     required this.montoPrestadoController,
     required this.incrementoPorcentualController,
-    required this.periodoGraciaController,
-    required this.plazoPrestamoController,
+    required this.numeroPeriodoController,
   });
 
   @override
@@ -56,19 +54,12 @@ class _GroupInputGState extends State<GroupInputG> {
           visible: widget.visible,
           child: InterestRateInput(
             textfieldType: TextfieldType.number,
-            labelText: "Periodo de gracia",
-            helperText: "No tienes que hacer pagos durante este periodo.",
-            icon: Icons.calendar_today,
-            controller: widget.periodoGraciaController,
+            labelText: "Numero periodo",
+            helperText:
+                "El número de períodos se refiere al número total de intervalos de tiempo en los que se realizarán los pagos o las transacciones.",
+            icon: Icons.attach_money_rounded,
+            controller: widget.numeroPeriodoController,
           ),
-        ),
-        const SizedBox(height: 25),
-        InterestRateInput(
-          textfieldType: TextfieldType.number,
-          helperText: "Es el tiempo total que te tomará pagar el préstamo",
-          labelText: "Plazo del préstamo en meses",
-          icon: Icons.calendar_today,
-          controller: widget.plazoPrestamoController,
         ),
       ],
     );

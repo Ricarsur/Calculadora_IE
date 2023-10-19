@@ -43,19 +43,12 @@ class _TirState extends State<Tir> {
                 Button(
                   calculo: () {
                     setState(() {
-                      valorActual = calcularValorActual();
                       valorTasaInterna = calcularTIR();
                     });
                   },
                 ),
                 const SizedBox(
                   height: 25,
-                ),
-                Text(
-                  "Valor actual neto (VAN): \$ $valorActual",
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
                 ),
                 Text(
                   "Tasa interna de retorno: $valorTasaInterna %",
@@ -76,18 +69,9 @@ class _TirState extends State<Tir> {
     double monto = double.parse(montoController.text);
     double interes = double.parse(interesController.text) / 100;
     double primerFlujo = double.parse(primerFlujoController.text);
-    double segundoFlujo = double.parse(primerFlujoController.text);
-
-    return valorActual;
-  }
-
-  double calcularValorActual() {
-    double valorActual = 0;
-    double monto = double.parse(montoController.text);
-    double interes = double.parse(interesController.text) / 100;
-    double primerFlujo = double.parse(primerFlujoController.text);
-    double segundoFlujo = double.parse(primerFlujoController.text);
-    valorActual = TasaInternaRetorno.calcularVAN([primerFlujo, segundoFlujo], interes, monto);
+    double segundoFlujo = double.parse(segundoFlujoController.text);
+    valorActual =
+        TasaInternaRetorno.calcularTIR(primerFlujo, segundoFlujo, monto);
     return valorActual;
   }
 }

@@ -10,11 +10,13 @@ class GradienteGeometrico extends StatefulWidget {
 
 class _GradienteAritmeticoState extends State<GradienteGeometrico> {
   final resultadoGeometricoController = ResultadoGeomtricoController();
+  
   final interesMensualController = TextEditingController();
   final montoPrestadoController = TextEditingController();
   final incrementoPorcentualController = TextEditingController();
-  final periodoGraciaController = TextEditingController();
-  final plazoPrestamoController = TextEditingController();
+  final numeroPeriodoController = TextEditingController();
+
+
   double resultadoFuturoAnticipado = 0;
   double resultadoFuturoVencido = 0;
   double resultadoPresenteVencido = 0;
@@ -53,8 +55,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
                   montoPrestadoController: montoPrestadoController,
                   incrementoPorcentualController:
                       incrementoPorcentualController,
-                  periodoGraciaController: periodoGraciaController,
-                  plazoPrestamoController: plazoPrestamoController,
+                  numeroPeriodoController: numeroPeriodoController,
                 ),
                 const SizedBox(height: 25),
                 DrowdownBox(
@@ -100,7 +101,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final monto = double.parse(montoPrestadoController.text);
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
-    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
       FuturoAnticipado = MGradienteGeometrico.ValorFuturoGeoAnticipado_GigualI(
           A: monto, G: aumento, I: interes, N: numeroPeriodos);
@@ -117,7 +118,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final monto = double.parse(montoPrestadoController.text);
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
-    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
       futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GigualI(
           A: monto, G: aumento, I: interes, N: numeroPeriodos);
@@ -141,7 +142,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
   double presenteAnticipado() {
     double presenteAnticipado = 0;
     final monto = double.parse(montoPrestadoController.text);
-    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    final numeroPeriodos = double.parse(numeroPeriodoController.text);
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
     if (aumento == interes) {
@@ -161,7 +162,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final monto = double.parse(montoPrestadoController.text);
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
-    final numeroPeriodos = double.parse(periodoGraciaController.text);
+    final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
       presenteVencido =
           MGradienteGeometrico.ValorPresenteGeometricoVencido_GigualI(
