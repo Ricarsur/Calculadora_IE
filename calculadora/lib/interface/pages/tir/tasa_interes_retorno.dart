@@ -52,7 +52,7 @@ class _TirState extends State<Tir> {
                   height: 25,
                 ),
                 Text(
-                  "Tasa interna de retorno: \$ $valorActual",
+                  "Valor actual neto: \$ $valorActual",
                   style: const TextStyle(
                     color: Colors.white,
                   ),
