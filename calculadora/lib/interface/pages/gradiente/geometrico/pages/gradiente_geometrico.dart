@@ -24,7 +24,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
 
   double resultadoGeometrico = 0;
   String valueCombo = "Anticipado";
-  String ValuePFI = "Presente";
+  String valuePFI = "Presente";
   bool visible = true;
 
   @override
@@ -52,36 +52,45 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
                   visible: visible,
                   interesMensualController: interesMensualController,
                   montoPrestadoController: montoPrestadoController,
-                  incrementoPorcentualController:
-                      incrementoPorcentualController,
+                  incrementoPorcentualController: incrementoPorcentualController,
                   numeroPeriodoController: numeroPeriodoController,
-                ),
-                const SizedBox(height: 25),
-                DrowdownBox(
-                  gradient: gradient,
-                  valorCombo: (value) {
-                    valueCombo = value;
-                    setState(() {});
-                  },
                 ),
                 const SizedBox(height: 25),
                 DrowdownBox(
                   gradient: gradient2,
                   valorCombo: (value) {
-                    ValuePFI = value;
-                    setState(() {});
+                    setState(() {
+                      valuePFI = value;
+                      if (value != 'infinito') {
+                        visible = true;
+                      } else {
+                        visible = false;
+                      }
+                    });
                   },
                 ),
                 const SizedBox(height: 25),
-                ResultadoGeometrico(
-                    resultadoController: resultadoGeometricoController),
+                Visibility(
+                  visible: visible,
+                  child: DrowdownBox(
+                    gradient: gradient,
+                    valorCombo: (value) {
+                      setState(() {
+                        valueCombo = value;
+                      });
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 25,
                 ),
+                Text('Resultado $resultadoGeometrico', style: const TextStyle(color: Colors.white)),
+                const SizedBox(height: 25),
                 Button(
                   calculo: () {
-                    tipOperation(ValuePFI);
-                    setState(() {});
+                    setState(() {
+                      tipOperation(valuePFI);
+                    });
                   },
                 ),
                 const SizedBox(
@@ -102,12 +111,11 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
     final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
-      FuturoAnticipado = MGradienteGeometrico.ValorFuturoGeoAnticipado_GigualI(
-          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+      FuturoAnticipado =
+          MGradienteGeometrico.ValorFuturoGeoAnticipado_GigualI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     } else if (aumento != interes) {
       FuturoAnticipado =
-          MGradienteGeometrico.ValorFuturoGeoAnticipado_GdiferentI(
-              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+          MGradienteGeometrico.ValorFuturoGeoAnticipado_GdiferentI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     }
     return FuturoAnticipado;
   }
@@ -119,11 +127,9 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
     final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
-      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GigualI(
-          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GigualI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     } else if (aumento != interes) {
-      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GdiferentI(
-          A: monto, G: aumento, I: interes, N: numeroPeriodos);
+      futuroVencido = MGradienteGeometrico.ValorFuturoGeoVencido_GdiferentI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     }
     return futuroVencido;
   }
@@ -134,8 +140,7 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
     if (aumento < interes) {
-      valor =
-          MGradienteGeometrico.ValorInfinito(A: monto, I: interes, G: aumento);
+      valor = MGradienteGeometrico.ValorInfinito(A: monto, I: interes, G: aumento);
     } else {
       print('error');
     }
@@ -149,13 +154,10 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final interes = double.parse(interesMensualController.text) / 100;
     final aumento = double.parse(incrementoPorcentualController.text) / 100;
     if (aumento == interes) {
-      presenteAnticipado =
-          MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GigualI(
-              A: monto, N: numeroPeriodos);
+      presenteAnticipado = MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GigualI(A: monto, N: numeroPeriodos);
     } else if (aumento != interes) {
       presenteAnticipado =
-          MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GdiferentI(
-              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+          MGradienteGeometrico.ValorPresenteGeometricoAnticipado_GdiferentI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     }
     return presenteAnticipado;
   }
@@ -168,46 +170,41 @@ class _GradienteAritmeticoState extends State<GradienteGeometrico> {
     final numeroPeriodos = double.parse(numeroPeriodoController.text);
     if (aumento == interes) {
       presenteVencido =
-          MGradienteGeometrico.ValorPresenteGeometricoVencido_GigualI(
-              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+          MGradienteGeometrico.ValorPresenteGeometricoVencido_GigualI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     } else if (aumento != interes) {
       presenteVencido =
-          MGradienteGeometrico.ValorPresenteGeometricoVencido_GdiferentI(
-              A: monto, G: aumento, I: interes, N: numeroPeriodos);
+          MGradienteGeometrico.ValorPresenteGeometricoVencido_GdiferentI(A: monto, G: aumento, I: interes, N: numeroPeriodos);
     }
     return presenteVencido;
   }
 
   void tipOperation(String option) {
     switch (option) {
-      case 'Valor futuro':
+      case 'Futuro':
         switch (valueCombo) {
           case 'Anticipado':
-            resultadoFuturoAnticipado = futuroAnticipado();
+            resultadoGeometrico = futuroAnticipado();
             break;
           case 'Vencido':
-            resultadoFuturoAnticipado = futuroVencido();
+            resultadoGeometrico = futuroVencido();
             break;
         }
-        resultadoGeometricoController
-            .actualizarResultadoPositivo(resultadoFuturoAnticipado);
+        resultadoGeometricoController.actualizarResultadoPositivo(resultadoFuturoAnticipado);
         break;
-      case 'Valor presente':
+      case 'Presente':
         switch (valueCombo) {
           case 'Anticipado':
-            resultadoPresenteAnticipado = presenteAnticipado();
+            resultadoGeometrico = presenteAnticipado();
             break;
           case 'Vencido':
-            resultadoPresenteVencido = presenteVencido();
+            resultadoGeometrico = presenteVencido();
             break;
         }
-        resultadoGeometricoController
-            .actualizarResultadoPositivo(resultadoPresenteAnticipado);
+        resultadoGeometricoController.actualizarResultadoPositivo(resultadoPresenteAnticipado);
         break;
       case 'infinito':
-        resultadoinfinito = infinito();
-        resultadoGeometricoController
-            .actualizarResultadoPositivo(resultadoinfinito);
+        resultadoGeometrico = infinito();
+        resultadoGeometricoController.actualizarResultadoPositivo(resultadoinfinito);
         break;
     }
   }
