@@ -15,13 +15,18 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
   final numeroPeriodoController = TextEditingController();
   double resultadoFuturoPositivo = 0;
   double resultadoFuturoNegativo = 0;
+  double resultadoFuturoNominal = 0;
   double resultadoPositivo = 0;
   double resultadoNegativo = 0;
   String valueCombo = "Valor futuro";
   bool visible = true;
   @override
   Widget build(BuildContext context) {
-    final List<String> gradient = ['Valor futuro', 'Valor presente', 'Valor presente infinito'];
+    final List<String> gradient = [
+      'Valor futuro',
+      'Valor presente',
+      'Valor presente infinito'
+    ];
     return Scaffold(
       backgroundColor: AppColor.background,
       body: Container(
@@ -81,8 +86,12 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro =
-        MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: false);
+    futuro = MGradienteAritmetico.calcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: false);
 
     return futuro;
   }
@@ -93,9 +102,26 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
     final numeroPeriodo = int.parse(numeroPeriodoController.text);
-    futuro = MGradienteAritmetico.calcularValorFuturo(A: monto, i: interes, n: numeroPeriodo, g: tasaCrecimiento, positivo: true);
+    futuro = MGradienteAritmetico.calcularValorFuturo(
+        A: monto,
+        i: interes,
+        n: numeroPeriodo,
+        g: tasaCrecimiento,
+        positivo: true);
 
     return futuro;
+  }
+
+  double futuroNominal() {
+    double nominal = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = double.parse(numeroPeriodoController.text);
+    nominal = MGradienteAritmetico.calcularValorFuturoNominal(
+        A: monto, G: tasaCrecimiento, j: interes, m: 2, n: numeroPeriodo);
+
+    return nominal;
   }
 
   double gradienteNegativo() {
@@ -138,7 +164,8 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = MGradienteAritmetico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: false);
+    valor = MGradienteAritmetico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: false);
     return valor;
   }
 
@@ -148,7 +175,8 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
     final interes = double.parse(interesController.text) / 100;
 
-    valor = MGradienteAritmetico.calcularPresenteInfinito(A: monto, G: tasaCrecimiento, I: interes, positivo: true);
+    valor = MGradienteAritmetico.calcularPresenteInfinito(
+        A: monto, G: tasaCrecimiento, I: interes, positivo: true);
     return valor;
   }
 
@@ -157,8 +185,12 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
       case 'Valor futuro':
         resultadoFuturoPositivo = futuroPositivo();
         resultadoFuturoNegativo = futuroNegativo();
-        resultadoController.actualizarResultadoPositivo(resultadoFuturoPositivo);
-        resultadoController.actualizarResultadoNegativo(resultadoFuturoNegativo);
+        resultadoFuturoNominal = futuroNominal();
+        resultadoController
+            .actualizarResultadoPositivo(resultadoFuturoPositivo);
+        resultadoController
+            .actualizarResultadoNegativo(resultadoFuturoNegativo);
+        resultadoController.actualizarResultadoNomial(resultadoFuturoNominal);
 
         break;
       case 'Valor presente':

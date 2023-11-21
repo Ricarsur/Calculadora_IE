@@ -16,7 +16,10 @@ class ResultAritmetico extends StatelessWidget {
         Text('Presente positivo: ${resultadoController.resultadoPositivo} ',
             style: GoogleFonts.poppins(color: AppColor.white, fontSize: 12)),
         Text('Presente negativo: ${resultadoController.resultadoNegativo} ',
+            style: GoogleFonts.poppins(color: AppColor.white, fontSize: 12)), 
+        Text('Futuro nominal: ${resultadoController.resultadoNominal} ',
             style: GoogleFonts.poppins(color: AppColor.white, fontSize: 12))
+            
       ],
     );
   }

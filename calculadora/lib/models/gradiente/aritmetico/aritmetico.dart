@@ -30,6 +30,18 @@ class MGradienteAritmetico {
     return primeraParte + signo * segundaParte;
   }
 
+  static double calcularValorFuturoNominal(
+      {required double A,
+      required double G,
+      required double j,
+      required double m,
+      required double n}) {
+    double resultado = A * ((pow(1 + (j / m), n * m) - 1) / (j / m)) +
+        G / (j / m) * ((pow(1 + (j / m), n * m) - 1) / (j / m) - n * m);
+
+    return resultado;
+  }
+
   //RENOMBRAR PLIS
   static double calcularValorPresente(
       {required double A,
