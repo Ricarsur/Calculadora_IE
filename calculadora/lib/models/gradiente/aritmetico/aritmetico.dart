@@ -42,6 +42,17 @@ class MGradienteAritmetico {
     return resultado;
   }
 
+  static double calcularValorEfectiva(
+      {required double A,
+      required double G,
+      required double j,
+      required double n}) {
+    double numerador = A - ((G / j) * (((pow(1 + j, n) - 1) / j) - n));
+    double denominador = ((pow(1 + j, n) - 1) / j);
+    double resultado = numerador / denominador;
+    return resultado;
+  }
+
   //RENOMBRAR PLIS
   static double calcularValorPresente(
       {required double A,

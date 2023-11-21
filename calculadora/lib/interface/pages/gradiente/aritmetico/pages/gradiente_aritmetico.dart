@@ -16,6 +16,7 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
   double resultadoFuturoPositivo = 0;
   double resultadoFuturoNegativo = 0;
   double resultadoFuturoNominal = 0;
+  double resultadoEfectiva = 0;
   double resultadoPositivo = 0;
   double resultadoNegativo = 0;
   String valueCombo = "Valor futuro";
@@ -112,6 +113,18 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
     return futuro;
   }
 
+  double futuroEfectiva() {
+    double futuro = 0;
+    final monto = double.parse(montoController.text);
+    final tasaCrecimiento = double.parse(tasaCrecimientoController.text);
+    final interes = double.parse(interesController.text) / 100;
+    final numeroPeriodo = double.parse(numeroPeriodoController.text);
+    futuro = MGradienteAritmetico.calcularValorEfectiva(
+        A: monto, j: interes, n: numeroPeriodo, G: tasaCrecimiento);
+
+    return futuro;
+  }
+
   double futuroNominal() {
     double nominal = 0;
     final monto = double.parse(montoController.text);
@@ -186,11 +199,13 @@ class _GradienteAritmeticoState extends State<GradienteAritmetico> {
         resultadoFuturoPositivo = futuroPositivo();
         resultadoFuturoNegativo = futuroNegativo();
         resultadoFuturoNominal = futuroNominal();
+        resultadoEfectiva = futuroEfectiva();
         resultadoController
             .actualizarResultadoPositivo(resultadoFuturoPositivo);
         resultadoController
             .actualizarResultadoNegativo(resultadoFuturoNegativo);
         resultadoController.actualizarResultadoNomial(resultadoFuturoNominal);
+        resultadoController.actualizarResultadoEfectiva(resultadoEfectiva);
 
         break;
       case 'Valor presente':
